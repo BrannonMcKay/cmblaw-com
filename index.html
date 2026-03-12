@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMB Law — Clayton, McKay & Bailey | Patents · Trademarks · Corporate · Litigation</title>
+<meta name="description" content="CMB Law is a boutique intellectual property and corporate law firm delivering big-law talent with boutique efficiency. Patents, trademarks, corporate, and litigation services in Atlanta, GA.">
+<meta property="og:title" content="CMB Law — Clayton, McKay & Bailey">
+<meta property="og:description" content="Big Law Talent. Boutique Efficiency. Elite IP attorneys serving Fortune 100 companies and startups from Atlanta, GA.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Plus+Jakarta+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+<link rel="icon" href="./favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<link rel="stylesheet" href="./base.css">
+<link rel="stylesheet" href="./style.css">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Clayton, McKay & Bailey",
+  "alternateName": "CMB Law",
+  "description": "Boutique intellectual property and corporate law firm in Atlanta, GA.",
+  "url": "https://cmblaw.com",
+  "telephone": "(404) 414-8633",
+  "email": "info@cmblaw.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "800 Battery Ave. SE, Suite 300",
+    "addressLocality": "Atlanta",
+    "addressRegion": "GA",
+    "postalCode": "30339",
+    "addressCountry": "US"
+  },
+  "areaServed": "US",
+  "priceRange": "$$",
+  "creator": {
+    "@type": "SoftwareApplication",
+    "name": "Perplexity Computer",
+    "url": "https://www.perplexity.ai/computer"
+  }
+}
+</script>
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   CMB LAW — Component Styles
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Skip Link ─── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  z-index: 200;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* ─── Header / Nav ─── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-4) var(--space-6);
+  background: oklch(from var(--color-bg) l c h / 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.header--scrolled {
+  box-shadow: var(--shadow-sm);
+}
+.header-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text);
+}
+.header-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+/* Dark logo = navy text, shown in light mode */
+.header-logo-dark { display: block; }
+.header-logo-light { display: none; }
+[data-theme="dark"] .header-logo-dark { display: none; }
+[data-theme="dark"] .header-logo-light { display: block; }
+.header-logo svg {
+  flex-shrink: 0;
+}
+
+.nav-desktop {
+  display: none;
+  align-items: center;
+  gap: var(--space-6);
+}
+@media (min-width: 768px) {
+  .nav-desktop { display: flex; }
+}
+.nav-desktop a {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+.nav-desktop a:hover {
+  color: var(--color-text);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.theme-toggle {
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: color var(--transition-interactive),
+              background var(--transition-interactive);
+}
+.theme-toggle:hover {
+  color: var(--color-text);
+  background: var(--color-surface-offset);
+}
+
+.mobile-menu-btn {
+  display: flex;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: color var(--transition-interactive);
+}
+.mobile-menu-btn:hover { color: var(--color-text); }
+@media (min-width: 768px) {
+  .mobile-menu-btn { display: none; }
+}
+
+/* Mobile nav overlay */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--color-bg);
+  padding: calc(var(--space-16) + var(--space-8)) var(--space-6) var(--space-8);
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.mobile-nav.active {
+  display: flex;
+}
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-divider);
+  transition: color var(--transition-interactive);
+}
+.mobile-nav a:hover {
+  color: var(--color-accent);
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-interactive),
+              color var(--transition-interactive),
+              box-shadow var(--transition-interactive),
+              transform var(--transition-interactive);
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-accent:hover {
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-md);
+}
+.btn-sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+.btn-outline:hover {
+  background: var(--color-surface-offset);
+  border-color: var(--color-text-muted);
+}
+
+.btn-navy {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+.btn-navy:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── Section Utilities ─── */
+.section {
+  padding: clamp(var(--space-12), 8vw, var(--space-24)) var(--space-4);
+}
+.section-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+}
+.section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+.section-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 56ch;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-32) var(--space-4) var(--space-16);
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(oklch(from var(--color-primary) l c h / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(from var(--color-primary) l c h / 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%);
+}
+.hero-bg-glow {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  top: -200px;
+  right: -200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(from var(--color-accent) l c h / 0.06) 0%, transparent 70%);
+  filter: blur(60px);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  text-align: center;
+}
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-6);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.02em;
+}
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+  margin: 0 auto var(--space-8);
+  line-height: 1.7;
+}
+.hero-cta {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ─── PRACTICE AREAS ─── */
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+@media (min-width: 640px) {
+  .practice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .practice-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .practice-card--featured {
+    grid-column: span 2;
+  }
+}
+
+.practice-card {
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.07);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: box-shadow var(--transition-interactive),
+              border-color var(--transition-interactive);
+}
+.practice-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: oklch(from var(--color-accent) l c h / 0.25);
+}
+.practice-card--featured {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: transparent;
+}
+.practice-card--featured:hover {
+  border-color: transparent;
+  box-shadow: var(--shadow-lg);
+}
+.practice-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  background: oklch(from var(--color-accent) l c h / 0.1);
+  color: var(--color-accent);
+}
+.practice-card--featured .practice-icon {
+  background: oklch(1 0 0 / 0.15);
+  color: #fff;
+}
+.practice-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.practice-card p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+.practice-card--featured p {
+  color: oklch(1 0 0 / 0.75);
+}
+.practice-services {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.practice-services li {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: oklch(1 0 0 / 0.12);
+  color: oklch(1 0 0 / 0.85);
+}
+.practice-card:not(.practice-card--featured) .practice-services li {
+  background: var(--color-surface-offset);
+  color: var(--color-text-muted);
+}
+
+/* ─── TEAM ─── */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+@media (min-width: 640px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.team-card {
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.07);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow var(--transition-interactive),
+              border-color var(--transition-interactive);
+}
+.team-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: oklch(from var(--color-accent) l c h / 0.25);
+}
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto var(--space-4);
+  object-fit: cover;
+  display: block;
+}
+.team-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+.team-title {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+.team-excerpt {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+.team-expand-hint {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  margin-top: var(--space-3);
+  font-weight: 500;
+  transition: color var(--transition-interactive);
+}
+.team-card:hover .team-expand-hint {
+  color: var(--color-accent-hover);
+}
+
+/* Team modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: oklch(0 0 0 / 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+.modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: background var(--transition-interactive),
+              color var(--transition-interactive);
+}
+.modal-close:hover {
+  background: var(--color-surface-offset);
+  color: var(--color-text);
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.modal-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+.modal-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+.modal-title-text {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+.modal-body p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+.modal-body h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  margin-top: var(--space-4);
+  color: var(--color-text);
+}
+.modal-body .detail-list {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.modal-contact {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-divider);
+}
+.modal-contact a {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-interactive);
+}
+.modal-contact a:hover { color: var(--color-accent-hover); }
+
+/* ─── WHY CMB ─── */
+.advantage-section {
+  background: var(--color-surface-2);
+}
+.advantage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+@media (min-width: 768px) {
+  .advantage-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+.advantage-content {
+  max-width: 50ch;
+}
+.advantage-content p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+.advantage-content .section-label {
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-3);
+}
+.advantage-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.stat-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.07);
+}
+.stat-number {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: var(--space-1);
+}
+.stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ─── CONTACT ─── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+@media (min-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+.contact-info h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.contact-detail-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-offset);
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+.contact-detail-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+.contact-detail-text a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+.contact-detail-text a:hover { color: var(--color-accent-hover); }
+
+.contact-form {
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.07);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+.form-group {
+  margin-bottom: var(--space-4);
+}
+.form-group label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  font-size: var(--text-sm);
+  transition: border-color var(--transition-interactive),
+              box-shadow var(--transition-interactive);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px oklch(from var(--color-accent) l c h / 0.12);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-12) var(--space-4) var(--space-6);
+}
+.footer-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid oklch(1 0 0 / 0.12);
+}
+@media (min-width: 768px) {
+  .footer-top {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+.footer-brand p {
+  font-size: var(--text-xs);
+  color: oklch(1 0 0 / 0.6);
+  max-width: 38ch;
+  line-height: 1.6;
+  margin-top: var(--space-3);
+}
+.footer-links h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: oklch(1 0 0 / 0.5);
+  margin-bottom: var(--space-3);
+}
+.footer-links a {
+  display: block;
+  font-size: var(--text-sm);
+  color: oklch(1 0 0 / 0.8);
+  text-decoration: none;
+  padding: var(--space-1) 0;
+  transition: color var(--transition-interactive);
+}
+.footer-links a:hover { color: #fff; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-6);
+}
+.footer-copyright {
+  font-size: var(--text-xs);
+  color: oklch(1 0 0 / 0.5);
+}
+.footer-pplx a {
+  font-size: var(--text-xs);
+  color: oklch(1 0 0 / 0.5);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+.footer-pplx a:hover { color: oklch(1 0 0 / 0.8); }
+
+/* ─── AI AGENT CTA BANNER ─── */
+.ai-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0f1e 0%, #111827 50%, #0a0f1e 100%);
+  padding: clamp(var(--space-10), 6vw, var(--space-16)) var(--space-4);
+}
+.ai-banner-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(oklch(0.55 0.15 250 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.55 0.15 250 / 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 60% 50%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 60% 50%, black 10%, transparent 70%);
+}
+.ai-banner-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  left: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.55 0.15 250 / 0.12) 0%, transparent 65%);
+  filter: blur(60px);
+}
+.ai-banner-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+.ai-banner-content {
+  max-width: 540px;
+}
+.ai-banner-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  margin-bottom: var(--space-4);
+}
+.ai-banner-label .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 4px #34d399; }
+  50% { opacity: 1; box-shadow: 0 0 12px #34d399; }
+}
+.ai-banner h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: #f1f5f9;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+.ai-banner p {
+  font-size: var(--text-sm);
+  color: oklch(0.8 0 0);
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+.ai-banner .btn-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: transform 200ms, box-shadow 200ms;
+}
+.ai-banner .btn-ai:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px oklch(0.55 0.2 260 / 0.35);
+}
+.ai-banner-visual {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 260px;
+}
+.ai-banner-code {
+  background: oklch(0.12 0.02 260);
+  border: 1px solid oklch(1 0 0 / 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #94a3b8;
+  white-space: pre;
+  overflow-x: auto;
+}
+.ai-banner-code .kw { color: #c084fc; }
+.ai-banner-code .str { color: #34d399; }
+.ai-banner-code .cmt { color: #475569; }
+@media (max-width: 768px) {
+  .ai-banner-inner { flex-direction: column; text-align: center; }
+  .ai-banner-content { max-width: 100%; }
+  .ai-banner-label { justify-content: center; }
+  .ai-banner-visual { width: 100%; min-width: 0; }
+}
+
+/* ─── PAYMENT METHODS STRIP ─── */
+.payment-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-divider);
+}
+.payment-strip-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+.payment-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.payment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  transition: border-color var(--transition-interactive);
+}
+.payment-badge:hover {
+  border-color: var(--color-accent);
+}
+.payment-badge svg {
+  flex-shrink: 0;
+}
+
+/* ─── Scroll Animations ─── */
+.fade-in { opacity: 1; }
+@supports (animation-timeline: scroll()) {
+  .fade-in {
+    opacity: 0;
+    animation: reveal-fade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+}
+@keyframes reveal-fade {
+  to { opacity: 1; }
+}
+
+/* ─── Logo in footer ─── */
+.footer-logo-img {
+  height: 52px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
+}
+
+/* ─── Intake Form Steps ─── */
+.intake-step {
+  display: none;
+}
+.intake-step.active {
+  display: block;
+}
+.intake-step-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.04em;
+}
+.intake-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.intake-options--compact {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.intake-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color var(--transition-interactive),
+              background var(--transition-interactive),
+              box-shadow var(--transition-interactive);
+  text-align: left;
+  width: 100%;
+}
+.intake-option:hover {
+  border-color: var(--color-accent);
+  background: oklch(from var(--color-accent) l c h / 0.04);
+}
+.intake-option.selected {
+  border-color: var(--color-accent);
+  background: oklch(from var(--color-accent) l c h / 0.08);
+  box-shadow: 0 0 0 2px oklch(from var(--color-accent) l c h / 0.15);
+}
+.intake-option--sm {
+  width: auto;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+  gap: 0;
+}
+.intake-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color var(--transition-interactive);
+}
+.intake-back:hover {
+  color: var(--color-text);
+}
+.intake-success {
+  text-align: center;
+  padding: var(--space-8) 0;
+}
+.intake-success svg {
+  margin: 0 auto var(--space-4);
+}
+.intake-success h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.intake-success p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* ─── File Upload ─── */
+.file-upload-area {
+  position: relative;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-interactive),
+              background var(--transition-interactive);
+}
+.file-upload-area:hover,
+.file-upload-area.drag-over {
+  border-color: var(--color-accent);
+  background: oklch(from var(--color-accent) l c h / 0.04);
+}
+.file-input-hidden {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.file-upload-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  pointer-events: none;
+}
+.file-upload-prompt svg {
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+.file-upload-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+.file-list {
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+}
+.file-item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  text-align: left;
+}
+.file-item-size {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+.file-item-remove {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: color var(--transition-interactive),
+              background var(--transition-interactive);
+}
+.file-item-remove:hover {
+  color: var(--color-error, #ef4444);
+  background: oklch(from var(--color-error, #ef4444) l c h / 0.1);
+}
+
+/* ─── AI Chat Widget ─── */
+.chat-fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  border: none;
+  z-index: 150;
+  transition: background var(--transition-interactive),
+              transform var(--transition-interactive),
+              box-shadow var(--transition-interactive);
+}
+.chat-fab:hover {
+  background: var(--color-primary-hover);
+  transform: scale(1.06);
+  box-shadow: 0 8px 32px oklch(from var(--color-primary) l c h / 0.3);
+}
+.chat-fab.hidden { display: none; }
+
+.chat-panel {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 380px;
+  max-width: calc(100vw - var(--space-8));
+  height: 520px;
+  max-height: calc(100dvh - var(--space-12));
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.1);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 48px oklch(0 0 0 / 0.15);
+  display: none;
+  flex-direction: column;
+  z-index: 151;
+  overflow: hidden;
+}
+.chat-panel.active {
+  display: flex;
+}
+.chat-header {
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.chat-header-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+}
+.chat-header h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.chat-header-sub {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.chat-close-btn {
+  color: #fff;
+  opacity: 0.7;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: var(--space-1);
+  display: flex;
+  transition: opacity var(--transition-interactive);
+}
+.chat-close-btn:hover { opacity: 1; }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.chat-msg {
+  max-width: 85%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  word-break: break-word;
+}
+.chat-msg--assistant {
+  align-self: flex-start;
+  background: var(--color-surface-offset);
+  color: var(--color-text);
+  border-bottom-left-radius: var(--radius-sm);
+}
+.chat-msg--user {
+  align-self: flex-end;
+  background: var(--color-primary);
+  color: #fff;
+  border-bottom-right-radius: var(--radius-sm);
+}
+.chat-msg--typing {
+  align-self: flex-start;
+  background: var(--color-surface-offset);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.chat-input-area {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-divider);
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+.chat-input {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  resize: none;
+  min-height: 38px;
+  max-height: 80px;
+}
+.chat-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px oklch(from var(--color-accent) l c h / 0.12);
+}
+.chat-send {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  flex-shrink: 0;
+  transition: background var(--transition-interactive);
+}
+.chat-send:hover { background: var(--color-accent-hover); }
+.chat-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
+</head>
+<body>
+
+<!-- Skip Link -->
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#hero" class="header-logo" aria-label="CMB Law — Home">
+      <img src="./assets/logo-header.png" alt="CMB Law — Clayton, McKay & Bailey" class="header-logo-img header-logo-dark" width="160" height="84">
+      <img src="./assets/logo-header-white.png" alt="CMB Law — Clayton, McKay & Bailey" class="header-logo-img header-logo-light" width="160" height="84">
+    </a>
+
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="#practice">Practice Areas</a>
+      <a href="#team">Team</a>
+      <a href="#advantage">Why CMB</a>
+      <a href="#contact">Contact</a>
+      <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent); font-weight: 600;">cmblaw.ai</a>
+      <a href="https://secure.lawpay.com/pages/claytonmckayandbaileypc/operating" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">Pay Invoice</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" data-mobile-toggle>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <a href="#practice" data-nav-link>Practice Areas</a>
+  <a href="#team" data-nav-link>Team</a>
+  <a href="#advantage" data-nav-link>Why CMB</a>
+  <a href="#contact" data-nav-link>Contact</a>
+  <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">AI Agent API</a>
+  <a href="https://secure.lawpay.com/pages/claytonmckayandbaileypc/operating" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">Pay Invoice</a>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<main id="main">
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-glow"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-tagline">Patents · Trademarks · Corporate · Litigation</p>
+    <h1>Elite Legal Judgment.<br>IP Law Boutique.<br>Cutting-Edge AI.</h1>
+    <p class="hero-subtitle">CMB combines the gold standard in IP law with cutting-edge AI to deliver patent, trademark, and corporate counsel with unmatched precision and efficiency.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-accent">Get in Touch</a>
+      <a href="#practice" class="btn btn-outline">Our Practice</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRACTICE AREAS ── -->
+<section class="section" id="practice">
+  <div class="section-inner">
+    <p class="section-label fade-in">Practice Areas</p>
+    <h2 class="section-title fade-in">Focused Expertise, Full-Service Capability</h2>
+    <p class="section-desc fade-in">Deep specialization in intellectual property, combined with corporate and litigation capabilities that cover the full lifecycle of innovation.</p>
+
+    <div class="practice-grid">
+      <!-- Patents (featured) -->
+      <div class="practice-card practice-card--featured fade-in">
+        <div class="practice-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Patents</h3>
+        <p>Full-service patent practice spanning preparation, prosecution, portfolio management, and litigation. Hundreds of applications across AI, medical devices, semiconductors, wireless communications, IoT, and energy systems.</p>
+        <ul class="practice-services" role="list">
+          <li>Preparation & Prosecution</li>
+          <li>Portfolio Strategy</li>
+          <li>Licensing & Monetization</li>
+          <li>IPR Proceedings</li>
+          <li>Patent Litigation</li>
+        </ul>
+      </div>
+
+      <!-- Trademarks -->
+      <div class="practice-card fade-in">
+        <div class="practice-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <h3>Trademarks</h3>
+        <p>Comprehensive brand protection — from clearance through enforcement — with 100+ marks acquired and expertise in opposition and cancellation proceedings.</p>
+        <ul class="practice-services" role="list">
+          <li>Applications</li>
+          <li>Brand Strategy</li>
+          <li>Enforcement</li>
+          <li>Global Protection</li>
+        </ul>
+      </div>
+
+      <!-- Corporate -->
+      <div class="practice-card fade-in">
+        <div class="practice-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3>Corporate</h3>
+        <p>Strategic counsel for technology companies from formation through exit — capital raises, M&A, governance, and cross-border transactions.</p>
+        <ul class="practice-services" role="list">
+          <li>M&A</li>
+          <li>VC & Seed</li>
+          <li>SEC Compliance</li>
+          <li>General Counsel</li>
+        </ul>
+      </div>
+
+      <!-- Litigation -->
+      <div class="practice-card fade-in">
+        <div class="practice-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Litigation</h3>
+        <p>Experienced trial lawyers representing plaintiffs and defendants in IP and commercial disputes across U.S. federal courts.</p>
+        <ul class="practice-services" role="list">
+          <li>Patent Infringement</li>
+          <li>Trademark Disputes</li>
+          <li>Trade Secrets</li>
+          <li>Expert Witness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section class="section" id="team" style="background: var(--color-surface-2);">
+  <div class="section-inner">
+    <p class="section-label fade-in">Our Team</p>
+    <h2 class="section-title fade-in">Big Firm Training, Boutique Focus</h2>
+    <p class="section-desc fade-in">Former Finnegan and Troutman Pepper attorneys with deep technical backgrounds and decades of experience.</p>
+
+    <div class="team-grid">
+      <!-- Brannon McKay -->
+      <div class="team-card fade-in" data-team="brannon" tabindex="0" role="button" aria-label="View Brannon McKay's full bio">
+        <img class="team-avatar" src="./assets/brannon.png" alt="Brannon McKay" loading="lazy">
+        <h3>Brannon McKay</h3>
+        <p class="team-title">Partner</p>
+        <p class="team-excerpt">Patent attorney focused on efficient patent preparation and prosecution, trademark acquisition, and IP litigation. Former Finnegan.</p>
+        <p class="team-expand-hint">View full bio</p>
+      </div>
+
+      <!-- Ben Bailey -->
+      <div class="team-card fade-in" data-team="ben" tabindex="0" role="button" aria-label="View Ben Bailey's full bio">
+        <img class="team-avatar" src="./assets/ben.png" alt="Ben Bailey" loading="lazy">
+        <h3>Ben Bailey</h3>
+        <p class="team-title">Partner</p>
+        <p class="team-excerpt">Nearly twenty years of IP experience in patent prosecution, trademark protection, licensing, and litigation. Former Finnegan.</p>
+        <p class="team-expand-hint">View full bio</p>
+      </div>
+
+      <!-- Josh Clayton -->
+      <div class="team-card fade-in" data-team="josh" tabindex="0" role="button" aria-label="View Josh Clayton's full bio">
+        <img class="team-avatar" src="./assets/josh.png" alt="Josh Clayton" loading="lazy">
+        <h3>Josh Clayton</h3>
+        <p class="team-title">Partner</p>
+        <p class="team-excerpt">Corporate and securities attorney with over a decade of practice in capital markets, M&A, and strategic transactions.</p>
+        <p class="team-expand-hint">View full bio</p>
+      </div>
+
+      <!-- Ginger Turner -->
+      <div class="team-card fade-in" data-team="ginger" tabindex="0" role="button" aria-label="View Ginger Turner's full bio">
+        <img class="team-avatar" src="./assets/ginger.png" alt="Ginger Turner" loading="lazy">
+        <h3>Ginger Turner, Ph.D., P.E.</h3>
+        <p class="team-title">Patent Agent</p>
+        <p class="team-excerpt">USPTO-registered patent agent and electrical engineer with expertise across medical devices, semiconductors, and AI.</p>
+        <p class="team-expand-hint">View full bio</p>
+      </div>
+
+      <!-- Becky Chiusano -->
+      <div class="team-card fade-in" data-team="becky" tabindex="0" role="button" aria-label="View Becky Chiusano's full bio">
+        <img class="team-avatar" src="./assets/becky.png" alt="Becky Chiusano" loading="lazy">
+        <h3>Becky Chiusano</h3>
+        <p class="team-title">IP Program Manager</p>
+        <p class="team-excerpt">Over three decades of IP administration experience, managing docketing operations and ensuring timely filings across patent and trademark portfolios.</p>
+        <p class="team-expand-hint">View full bio</p>
+      </div>
+
+      <!-- Manoj Gandhi -->
+      <div class="team-card fade-in" data-team="manoj" tabindex="0" role="button" aria-label="View Manoj Gandhi's full bio">
+        <img class="team-avatar" src="./assets/manoj.png" alt="Manoj Gandhi" loading="lazy">
+        <h3>Manoj Gandhi</h3>
+        <p class="team-title">Of Counsel</p>
+        <p class="team-excerpt">Business litigation, corporate transactions, and IP enforcement attorney. Former Akin Gump. Houston-based through Gandhi Law LLC.</p>
+        <p class="team-expand-hint">View full bio</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Modal -->
+<div class="modal-overlay" id="teamModal" role="dialog" aria-modal="true" aria-label="Team member biography">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close" data-modal-close>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-header">
+      <img class="modal-avatar" id="modalAvatar" src="" alt="">
+      <div>
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-title-text" id="modalTitle"></div>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ── WHY CMB / ADVANTAGE ── -->
+<section class="section advantage-section" id="advantage">
+  <div class="section-inner">
+    <div class="advantage-grid">
+      <div class="advantage-content fade-in">
+        <p class="section-label">Why CMB</p>
+        <h2 class="section-title">Proven Value.<br>Unmatched Pedigree.</h2>
+        <p>Over 13&nbsp;years, CMB has proven itself as one of the best values any Fortune&nbsp;500 company can hire — from building large-scale patent portfolios to providing strategic guidance in complex IP&nbsp;litigation.</p>
+        <p>Founded by former Finnegan attorneys who trained at the world's top IP firms, our team pairs that big-law pedigree with cutting-edge AI to work faster and smarter — without sacrificing the elite judgment that matters. The result: gold-standard IP counsel delivered with efficiency that traditional firms can't match.</p>
+      </div>
+      <div class="advantage-stats fade-in">
+        <div class="stat-card">
+          <div class="stat-number">1,000+</div>
+          <div class="stat-label">Patents Filed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Trademarks Registered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">75+</div>
+          <div class="stat-label">Years Combined Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">13</div>
+          <div class="stat-label">Years Serving F500 Clients</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI AGENT CTA BANNER ── -->
+<section class="ai-banner" id="ai-agents">
+  <div class="ai-banner-grid-bg"></div>
+  <div class="ai-banner-glow"></div>
+  <div class="ai-banner-inner">
+    <div class="ai-banner-content fade-in">
+      <div class="ai-banner-label">
+        <span class="pulse-dot"></span>
+        AI Agents Welcome
+      </div>
+      <h2>Your AI Agent Can<br>Hire Us Directly</h2>
+      <p>CMB offers programmatic API access for AI agents to collaboratively file trademark applications, draft U.S. Provisional Patent Applications, form entities, and consult attorneys. Every submission is reviewed, improved as needed, and filed by elite human lawyers.</p>
+      <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer" class="btn-ai">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Visit cmblaw.ai
+      </a>
+    </div>
+    <div class="ai-banner-visual fade-in">
+      <div class="ai-banner-code"><span class="cmt">// File a trademark via API</span>
+POST <span class="str">api.cmblaw.ai/api/v1/trademark</span>
+{
+  <span class="kw">"mark"</span>: <span class="str">"ACME"</span>,
+  <span class="kw">"class_codes"</span>: [<span class="str">9</span>, <span class="str">42</span>],
+  <span class="kw">"description"</span>: <span class="str">"SaaS platform"</span>
+}
+<span class="cmt">// → Reviewed & filed by CMB attorneys</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <p class="section-label fade-in">Contact</p>
+    <h2 class="section-title fade-in">Let's Talk</h2>
+    <p class="section-desc fade-in">Whether you're filing a first patent or managing a global portfolio, we'd like to hear from you.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <h3>Atlanta Office</h3>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            800 Battery Ave. SE, Suite 300<br>
+            Atlanta, GA 30339
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <a href="tel:+14044148633">(404) 414-8633</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <a href="mailto:info@cmblaw.com">info@cmblaw.com</a>
+          </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-strip">
+          <span class="payment-strip-label">We accept</span>
+          <div class="payment-badges">
+            <span class="payment-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Stripe
+            </span>
+            <span class="payment-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M7.5 8.5C7.5 7.12 9.51 6 12 6s4.5 1.12 4.5 2.5S14.49 11 12 11s-4.5 1.12-4.5 2.5S9.51 18 12 18s4.5-1.12 4.5-2.5"/></svg>
+              USDC
+            </span>
+            <span class="payment-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              LawPay
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form fade-in" id="intakeForm">
+        <!-- Step 1: IP Need -->
+        <div class="intake-step active" data-step="1">
+          <div class="intake-step-label">Step 1 of 3</div>
+          <div class="form-group">
+            <label>What do you need help with?</label>
+            <div class="intake-options" id="ipNeedOptions">
+              <button type="button" class="intake-option" data-value="patents">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                <span>Patents</span>
+              </button>
+              <button type="button" class="intake-option" data-value="trademarks">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <span>Trademarks</span>
+              </button>
+              <button type="button" class="intake-option" data-value="corporate">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+                <span>Corporate / Deals</span>
+              </button>
+              <button type="button" class="intake-option" data-value="litigation">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Litigation</span>
+              </button>
+              <button type="button" class="intake-option" data-value="other">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>General Inquiry</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Tech Area (shown for patents/trademarks) -->
+        <div class="intake-step" data-step="2">
+          <div class="intake-step-label">Step 2 of 3</div>
+          <div class="form-group">
+            <label>What technology area?</label>
+            <div class="intake-options intake-options--compact" id="techAreaOptions">
+              <button type="button" class="intake-option intake-option--sm" data-value="ai">AI / Machine Learning</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="medical">Medical Devices</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="semiconductor">Semiconductors</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="wireless">Wireless / 5G</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="iot">IoT</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="energy">Energy Systems</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="software">Software</button>
+              <button type="button" class="intake-option intake-option--sm" data-value="other">Other</button>
+            </div>
+          </div>
+          <button type="button" class="intake-back" data-back>Back</button>
+        </div>
+
+        <!-- Step 3: Contact Details -->
+        <div class="intake-step" data-step="3">
+          <div class="intake-step-label">Step 3 of 3</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="intakeName">Your Name</label>
+              <input type="text" id="intakeName" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="intakeEmail">Email</label>
+              <input type="email" id="intakeEmail" name="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="intakeCompany">Company <span style="color:var(--color-text-muted);font-weight:400;">(optional)</span></label>
+              <input type="text" id="intakeCompany" name="company">
+            </div>
+            <div class="form-group">
+              <label for="intakeUrgency">Timeline</label>
+              <select id="intakeUrgency" name="urgency">
+                <option value="">No rush</option>
+                <option value="deadline">Filing deadline approaching</option>
+                <option value="active-dispute">Active dispute / litigation</option>
+                <option value="product-launch">Product launch coming</option>
+                <option value="exploratory">Just exploring options</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="intakeDesc">Brief description of your needs</label>
+            <textarea id="intakeDesc" name="description" rows="3" placeholder="Tell us a bit about what you need help with..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="intakeAttorney">Preferred attorney <span style="color:var(--color-text-muted);font-weight:400;">(optional)</span></label>
+            <select id="intakeAttorney" name="attorney">
+              <option value="">No preference (general inquiry)</option>
+              <option value="brannon">Brannon McKay — Patents, Trademarks, IP Litigation</option>
+              <option value="ben">Ben Bailey — Patents, Trademarks, IP Litigation</option>
+              <option value="josh">Josh Clayton — Corporate, Deal Work</option>
+              <option value="manoj">Manoj Gandhi — Business Litigation, Corporate, IP</option>
+              <option value="ginger">Ginger Turner — Patent Prosecution</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Attachments <span style="color:var(--color-text-muted);font-weight:400;">(optional — invention disclosures, prior art, etc.)</span></label>
+            <div class="file-upload-area" id="fileUploadArea">
+              <input type="file" id="intakeFiles" name="files" multiple class="file-input-hidden" accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.xls,.xlsx,.ppt,.pptx,.zip">
+              <div class="file-upload-prompt" id="fileUploadPrompt">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>Drag files here or <strong>browse</strong></span>
+                <span class="file-upload-hint">PDF, Word, images, spreadsheets — max 10 MB each</span>
+              </div>
+              <div class="file-list" id="fileList"></div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-accent" style="width: 100%;">Submit Inquiry</button>
+          <button type="button" class="intake-back" data-back>Back</button>
+        </div>
+
+        <!-- Success State -->
+        <div class="intake-step" data-step="success">
+          <div class="intake-success">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h3>Inquiry Received</h3>
+            <p>Thank you. One of our attorneys will follow up with you shortly.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ AI Chat Widget ═══ -->
+<button class="chat-fab" id="chatFab" aria-label="Open chat assistant">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-header-dot"></div>
+      <div>
+        <h4>CMB Assistant</h4>
+        <div class="chat-header-sub">AI-powered intake</div>
+      </div>
+    </div>
+    <button class="chat-close-btn" id="chatClose" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-area">
+    <textarea class="chat-input" id="chatInput" placeholder="Type your message..." rows="1"></textarea>
+    <button class="chat-send" id="chatSend" aria-label="Send message">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="./assets/logo-footer.png" alt="CMB Law — Clayton, McKay & Bailey" class="footer-logo-img" width="200" height="106">
+        <p>Boutique intellectual property and corporate law firm in Atlanta, GA. Big law talent with boutique efficiency.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Practice</h4>
+        <a href="#practice">Patents</a>
+        <a href="#practice">Trademarks</a>
+        <a href="#practice">Corporate</a>
+        <a href="#practice">Litigation</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>Firm</h4>
+        <a href="#team">Our Team</a>
+        <a href="#advantage">Why CMB</a>
+        <a href="#contact">Contact</a>
+        <a href="https://secure.lawpay.com/pages/claytonmckayandbaileypc/operating" target="_blank" rel="noopener noreferrer">Pay Invoice</a>
+        <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer">AI Agent API →</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">&copy; 2026 Clayton, McKay & Bailey. All rights reserved.</div>
+      <div class="footer-pplx">
+        <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./app.js"></script>
+</body>
+</html>

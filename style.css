@@ -1,0 +1,165 @@
+/* style.css — CMB Law Design Tokens */
+
+/* ─── Fonts ─── */
+/* DM Sans for body, Plus Jakarta Sans for display */
+
+/* ─── Type Scale ─── */
+:root {
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.9rem  + 0.5vw,  1.125rem);
+  --text-lg:   clamp(1.125rem, 0.95rem + 0.85vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1rem    + 1.5vw,  2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+  --text-hero: clamp(3rem,     0.5rem  + 7vw,    8rem);
+
+  /* ─── Font Families ─── */
+  --font-display: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+  --font-body: 'DM Sans', 'Plus Jakarta Sans', sans-serif;
+
+  /* ─── Spacing (4px base) ─── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ─── Radius ─── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ─── Transitions ─── */
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ─── Content Widths ─── */
+  --content-narrow: 640px;
+  --content-default: 960px;
+  --content-wide: 1200px;
+  --content-full: 100%;
+}
+
+/* ─── Light Mode (Default) ─── */
+:root, [data-theme="light"] {
+  /* Surfaces — clean whites & warm light grays */
+  --color-bg:               #F8F9FA;
+  --color-surface:          #FFFFFF;
+  --color-surface-2:        #F1F3F5;
+  --color-surface-offset:   #E9ECF0;
+  --color-surface-offset-2: #DEE2E6;
+  --color-surface-dynamic:  #D5DAE0;
+  --color-divider:          #CED4DA;
+  --color-border:           #C1C9D1;
+
+  /* Text */
+  --color-text:             #1A1D23;
+  --color-text-muted:       #6B7280;
+  --color-text-faint:       #9CA3AF;
+  --color-text-inverse:     #F8F9FA;
+
+  /* Primary — Deep Navy (CMB Brand) */
+  --color-primary:          #1B2A4A;
+  --color-primary-hover:    #152240;
+  --color-primary-active:   #0F1A33;
+  --color-primary-highlight: #D6DCE8;
+
+  /* Accent — Modern Teal */
+  --color-accent:           #0D9488;
+  --color-accent-hover:     #0A7B71;
+  --color-accent-active:    #07635B;
+  --color-accent-highlight: #CCFBF1;
+
+  /* Semantic */
+  --color-error:            #DC2626;
+  --color-success:          #16A34A;
+  --color-warning:          #D97706;
+
+  /* Shadows (tone-matched) */
+  --shadow-sm: 0 1px 2px oklch(0.2 0.02 240 / 0.06);
+  --shadow-md: 0 4px 12px oklch(0.2 0.02 240 / 0.08);
+  --shadow-lg: 0 12px 32px oklch(0.2 0.02 240 / 0.12);
+}
+
+/* ─── Dark Mode ─── */
+[data-theme="dark"] {
+  /* Surfaces — deep navy-blacks */
+  --color-bg:               #0C1220;
+  --color-surface:          #111827;
+  --color-surface-2:        #161E2E;
+  --color-surface-offset:   #1C2536;
+  --color-surface-offset-2: #232D40;
+  --color-surface-dynamic:  #2A354A;
+  --color-divider:          #2E3A50;
+  --color-border:           #374357;
+
+  /* Text */
+  --color-text:             #E5E7EB;
+  --color-text-muted:       #9CA3AF;
+  --color-text-faint:       #6B7280;
+  --color-text-inverse:     #111827;
+
+  /* Primary — lighter navy for contrast */
+  --color-primary:          #94A3C8;
+  --color-primary-hover:    #A8B5D4;
+  --color-primary-active:   #B8C4DF;
+  --color-primary-highlight: #1E2940;
+
+  /* Accent — lighter teal */
+  --color-accent:           #2DD4BF;
+  --color-accent-hover:     #5EEAD4;
+  --color-accent-active:    #99F6E4;
+  --color-accent-highlight: #0F2E2A;
+
+  /* Semantic */
+  --color-error:            #F87171;
+  --color-success:          #4ADE80;
+  --color-warning:          #FBBF24;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.2);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.3);
+  --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.4);
+}
+
+/* System preference fallback */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg:               #0C1220;
+    --color-surface:          #111827;
+    --color-surface-2:        #161E2E;
+    --color-surface-offset:   #1C2536;
+    --color-surface-offset-2: #232D40;
+    --color-surface-dynamic:  #2A354A;
+    --color-divider:          #2E3A50;
+    --color-border:           #374357;
+    --color-text:             #E5E7EB;
+    --color-text-muted:       #9CA3AF;
+    --color-text-faint:       #6B7280;
+    --color-text-inverse:     #111827;
+    --color-primary:          #94A3C8;
+    --color-primary-hover:    #A8B5D4;
+    --color-primary-active:   #B8C4DF;
+    --color-primary-highlight: #1E2940;
+    --color-accent:           #2DD4BF;
+    --color-accent-hover:     #5EEAD4;
+    --color-accent-active:    #99F6E4;
+    --color-accent-highlight: #0F2E2A;
+    --color-error:            #F87171;
+    --color-success:          #4ADE80;
+    --color-warning:          #FBBF24;
+    --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.2);
+    --shadow-md: 0 4px 12px oklch(0 0 0 / 0.3);
+    --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.4);
+  }
+}
