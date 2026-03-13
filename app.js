@@ -203,41 +203,16 @@
     btn.classList.add("selected");
     intakeState.ipNeed = btn.getAttribute("data-value");
 
-    // decide next step
+    // go straight to contact details
     setTimeout(function () {
-      if (intakeState.ipNeed === "patents" || intakeState.ipNeed === "trademarks") {
-        showStep(2);
-      } else {
-        showStep(3);
-      }
-    }, 200);
-  });
-
-  // Step 2: Tech area selection
-  document.getElementById("techAreaOptions").addEventListener("click", function (e) {
-    var btn = e.target.closest(".intake-option");
-    if (!btn) return;
-    this.querySelectorAll(".intake-option").forEach(function (b) {
-      b.classList.remove("selected");
-    });
-    btn.classList.add("selected");
-    intakeState.techArea = btn.getAttribute("data-value");
-
-    setTimeout(function () {
-      showStep(3);
+      showStep(2);
     }, 200);
   });
 
   // Back buttons
   intakeForm.querySelectorAll("[data-back]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      if (intakeState.step === 3) {
-        if (intakeState.ipNeed === "patents" || intakeState.ipNeed === "trademarks") {
-          showStep(2);
-        } else {
-          showStep(1);
-        }
-      } else if (intakeState.step === 2) {
+      if (intakeState.step === 2) {
         showStep(1);
       }
     });

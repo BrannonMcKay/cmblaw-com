@@ -68,17 +68,17 @@
   --color-text-faint:       #9CA3AF;
   --color-text-inverse:     #F8F9FA;
 
-  /* Primary — Deep Navy (CMB Brand) */
-  --color-primary:          #1B2A4A;
-  --color-primary-hover:    #152240;
-  --color-primary-active:   #0F1A33;
-  --color-primary-highlight: #D6DCE8;
+  /* Primary — CMB Logo Navy */
+  --color-primary:          #000080;
+  --color-primary-hover:    #000066;
+  --color-primary-active:   #00004D;
+  --color-primary-highlight: #D0D0F0;
 
-  /* Accent — Modern Teal */
-  --color-accent:           #0D9488;
-  --color-accent-hover:     #0A7B71;
-  --color-accent-active:    #07635B;
-  --color-accent-highlight: #CCFBF1;
+  /* Accent — CMB Logo Navy */
+  --color-accent:           #000080;
+  --color-accent-hover:     #000066;
+  --color-accent-active:    #00004D;
+  --color-accent-highlight: #D0D0F0;
 
   /* Semantic */
   --color-error:            #DC2626;

@@ -118,7 +118,7 @@
   color: var(--color-text);
 }
 .header-logo-img {
-  height: 40px;
+  height: 52px;
   width: auto;
   display: block;
 }
@@ -148,6 +148,12 @@
   transition: color var(--transition-interactive);
 }
 .nav-desktop a:hover {
+  color: var(--color-text);
+}
+.nav-desktop a.btn-accent {
+  color: #fff;
+}
+.nav-desktop a.btn-outline {
   color: var(--color-text);
 }
 
@@ -1436,8 +1442,8 @@
   </div>
   <div class="hero-content">
     <p class="hero-tagline">Patents · Trademarks · Corporate · Litigation</p>
-    <h1>Elite Legal Judgment.<br>IP Law Boutique.<br>Cutting-Edge AI.</h1>
-    <p class="hero-subtitle">CMB combines the gold standard in IP law with cutting-edge AI to deliver patent, trademark, and corporate counsel with unmatched precision and efficiency.</p>
+    <h1>Elite Legal Judgment.<br>IP Law Boutique.</h1>
+    <p class="hero-subtitle">CMB combines the gold standard in IP law with cutting-edge tech to deliver patent, trademark, and corporate counsel with unmatched precision and efficiency.</p>
     <div class="hero-cta">
       <a href="#contact" class="btn btn-accent">Get in Touch</a>
       <a href="#practice" class="btn btn-outline">Our Practice</a>
@@ -1539,7 +1545,7 @@
         <img class="team-avatar" src="./assets/ben.png" alt="Ben Bailey" loading="lazy">
         <h3>Ben Bailey</h3>
         <p class="team-title">Partner</p>
-        <p class="team-excerpt">Nearly twenty years of IP experience in patent prosecution, trademark protection, licensing, and litigation. Former Finnegan.</p>
+        <p class="team-excerpt">Nearly twenty years of IP experience in patent prosecution, trademark protection, licensing, and litigation.</p>
         <p class="team-expand-hint">View full bio</p>
       </div>
 
@@ -1548,7 +1554,7 @@
         <img class="team-avatar" src="./assets/brannon.png" alt="Brannon McKay" loading="lazy">
         <h3>Brannon McKay</h3>
         <p class="team-title">Partner</p>
-        <p class="team-excerpt">Patent attorney focused on efficient patent preparation and prosecution, trademark acquisition, and IP litigation. Former Finnegan.</p>
+        <p class="team-excerpt">Patent attorney focused on efficient patent preparation and prosecution, trademark acquisition, and IP litigation.</p>
         <p class="team-expand-hint">View full bio</p>
       </div>
 
@@ -1723,7 +1729,7 @@ POST <span class="str">api.cmblaw.ai/api/v1/trademark</span>
       <form class="contact-form fade-in" id="intakeForm">
         <!-- Step 1: IP Need -->
         <div class="intake-step active" data-step="1">
-          <div class="intake-step-label">Step 1 of 3</div>
+          <div class="intake-step-label">Step 1 of 2</div>
           <div class="form-group">
             <label>What do you need help with?</label>
             <div class="intake-options" id="ipNeedOptions">
@@ -1751,28 +1757,9 @@ POST <span class="str">api.cmblaw.ai/api/v1/trademark</span>
           </div>
         </div>
 
-        <!-- Step 2: Tech Area (shown for patents/trademarks) -->
+        <!-- Step 2: Contact Details -->
         <div class="intake-step" data-step="2">
-          <div class="intake-step-label">Step 2 of 3</div>
-          <div class="form-group">
-            <label>What technology area?</label>
-            <div class="intake-options intake-options--compact" id="techAreaOptions">
-              <button type="button" class="intake-option intake-option--sm" data-value="ai">AI / Machine Learning</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="medical">Medical Devices</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="semiconductor">Semiconductors</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="wireless">Wireless / 5G</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="iot">IoT</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="energy">Energy Systems</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="software">Software</button>
-              <button type="button" class="intake-option intake-option--sm" data-value="other">Other</button>
-            </div>
-          </div>
-          <button type="button" class="intake-back" data-back>Back</button>
-        </div>
-
-        <!-- Step 3: Contact Details -->
-        <div class="intake-step" data-step="3">
-          <div class="intake-step-label">Step 3 of 3</div>
+          <div class="intake-step-label">Step 2 of 2</div>
           <div class="form-row">
             <div class="form-group">
               <label for="intakeName">Your Name</label>
