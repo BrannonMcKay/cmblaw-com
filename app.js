@@ -48,11 +48,11 @@
     },
     manoj: {
       name: "Manoj Gandhi",
-      title: "Partner \u2014 Through Gandhi Law LLC",
+      title: "Partner",
       photo: "./assets/manoj.png",
       bio: "<p>Manoj Gandhi provides early-stage to mid-size companies with outside general counsel services, handling business litigation, corporate transactions, and day-to-day legal and operational guidance. Whether serving as a strong courtroom advocate or a savvy deal negotiator, he meets clients\u2019 needs across the full spectrum of business law. As an entrepreneur himself, Manoj advises companies from startup through acquisition \u2014 developing IP strategy, reviewing contracts, preparing corporate formation documents, and implementing business development objectives.</p><p>Prior to CMB, Manoj honed his legal skills for over a decade at Akin Gump, an international law firm. He is an accomplished litigator and adviser on a wide variety of critical matters, including patent, trademark, and trade secret litigation, practicing in both federal and state courts across the country. Manoj advises clients across a comprehensive array of technologies, including computer and telecommunications, software, streaming media, GPS navigation, battery charging, oilfield services and equipment, medical devices, fitness electronics, and blockchain.</p><p>Manoj also combines his passion for creative content \u2014 particularly music and film \u2014 with his practice. Using his background in IP enforcement, he counsels creators on the negotiation of sponsorship, licensing, and endorsement agreements across social media and traditional entertainment.</p><h4>Education</h4><p class=\"detail-list\">J.D., University of Houston Law Center<br>B.S.E. Computer & Telecommunications Engineering (Minor in Economics), University of Pennsylvania<br>Study Abroad: Hong Kong University of Science & Technology</p><h4>Admissions</h4><p class=\"detail-list\">Texas Bar &middot; Eastern District of Texas</p>",
       contact:
-        '<a href="mailto:manoj@cmblaw.com">manoj@cmblaw.com</a><a href="tel:+18327824964">832-782-4964</a><span>Through Gandhi Law LLC</span>',
+        '<a href="mailto:manoj@cmblaw.com">manoj@cmblaw.com</a><a href="tel:+18327824964">832-782-4964</a>',
     },
   };
 
