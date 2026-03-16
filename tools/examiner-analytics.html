@@ -393,6 +393,29 @@
   align-items: center;
   gap: var(--space-3);
 }
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.share-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+.share-btn.copied {
+  color: #16a34a;
+  border-color: #16a34a;
+  background: rgba(22, 163, 74, 0.06);
+}
 .period-toggle {
   display: inline-flex;
   background: var(--color-surface-offset);
@@ -1022,7 +1045,10 @@
     <!-- Toolbar -->
     <div class="toolbar" id="toolbar" style="display: none;">
       <div class="toolbar-left">
-        <!-- placeholder for future filters -->
+        <button class="share-btn" id="shareLinkBtn" onclick="copyExaminerLink()" title="Copy a direct link to this examiner's stats">
+          <svg id="shareLinkIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span id="shareLinkText">Copy Link</span>
+        </button>
       </div>
       <div class="period-toggle" role="radiogroup" aria-label="Time period">
         <button class="period-btn active" role="radio" aria-checked="true" data-period="recent">2015+</button>
@@ -1698,6 +1724,33 @@ els.errorRetry.addEventListener('click', () => {
   }
 });
 
+/* ─── Share Link ─── */
+function copyExaminerLink() {
+  if (!state.currentExaminer) return;
+  const url = new URL(window.location.href.split('?')[0]);
+  url.searchParams.set('examiner', state.currentExaminer);
+  navigator.clipboard.writeText(url.toString()).then(() => {
+    const btn = document.getElementById('shareLinkBtn');
+    const txt = document.getElementById('shareLinkText');
+    btn.classList.add('copied');
+    txt.textContent = 'Link Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      txt.textContent = 'Copy Link';
+    }, 2000);
+  });
+}
+
+/* ─── URL Parameter Loading ─── */
+function loadFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const examiner = params.get('examiner');
+  if (examiner) {
+    els.searchInput.value = examiner;
+    loadExaminerData(examiner);
+  }
+}
+
 /* ─── Init ─── */
 initTheme();
 initMobileMenu();
@@ -1706,6 +1759,7 @@ initTabs();
 initPeriodToggle();
 initAutocomplete();
 initSearchForm();
+loadFromURL();
 </script>
 </body>
 </html>
