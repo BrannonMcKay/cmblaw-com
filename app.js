@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var API = "port/8000";
+  var API = "https://api.cmblaw.ai";
 
   /* ─── Team Bio Data ─── */
   var teamData = {
@@ -311,17 +311,24 @@
       formData.append("files", f);
     });
 
+    var submitBtn = intakeForm.querySelector('button[type="submit"]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending..."; }
+
     fetch(API + "/api/intake", {
       method: "POST",
       body: formData,
     })
-      .then(function () {
+      .then(function (res) {
+        if (!res.ok) throw new Error("Server error");
         selectedFiles = [];
         renderFileList();
         showStep("success");
       })
       .catch(function () {
-        showStep("success"); // Show success anyway for UX
+        alert("Something went wrong sending your inquiry. Please try again or email us directly at info@cmblaw.com.");
+      })
+      .finally(function () {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Submit Inquiry"; }
       });
   });
 
