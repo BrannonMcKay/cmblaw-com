@@ -1515,25 +1515,25 @@ function renderMetrics(data, avg) {
     {
       label: 'Allowance Rate',
       value: fmtPct(data.allowance_rate),
-      compare: compareStat(data.allowance_rate, avg.allowance_rate, true),
+      compare: compareStat(data.allowance_rate, avg.allowance_rate, true, true),
       higherBetter: true,
     },
     {
       label: 'Avg RCEs',
       value: fmtNum(data.avg_rce_before_allowance),
-      compare: compareStat(data.avg_rce_before_allowance, avg.avg_rce_before_allowance, false),
+      compare: compareStat(data.avg_rce_before_allowance, avg.avg_rce_before_allowance, false, false),
       higherBetter: false,
     },
     {
       label: 'Avg Office Actions',
       value: fmtNum(data.avg_office_actions),
-      compare: compareStat(data.avg_office_actions, avg.avg_office_actions, false),
+      compare: compareStat(data.avg_office_actions, avg.avg_office_actions, false, false),
       higherBetter: false,
     },
     {
       label: 'Avg Time to Disposition',
       value: fmtMonths(data.avg_prosecution_months),
-      compare: compareStat(data.avg_prosecution_months, avg.avg_prosecution_months, false),
+      compare: compareStat(data.avg_prosecution_months, avg.avg_prosecution_months, false, false),
       higherBetter: false,
     },
   ];
@@ -1553,11 +1553,10 @@ function renderMetrics(data, avg) {
   `;
 }
 
-function compareStat(val, avg, higherBetter) {
+function compareStat(val, avg, higherBetter, isPercent) {
   if (val == null || avg == null) return { cls: 'neutral', icon: '', text: 'No comparison data' };
   const diff = val - avg;
   const absDiff = Math.abs(diff);
-  const isPercent = val <= 1 && avg <= 1;
   const fmtDiff = isPercent ? fmtPctPts(absDiff) : absDiff.toFixed(1);
   const avgDisplay = isPercent ? fmtPct(avg) : avg.toFixed(1);
 
