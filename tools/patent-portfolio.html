@@ -1538,17 +1538,30 @@ function buildBaseQuery(query) {
   return `${fieldPrefix}:"${query}"`;
 }
 
-/* Fetch a single page from the proxy */
+/* Fetch a single page from the proxy (with retry) */
 async function fetchPage(q, limit = API_LIMIT, offset = 0) {
   const params = new URLSearchParams({ q, limit: String(limit), offset: String(offset), fields: FIELDS });
-  const resp = await fetch(`${PROXY_BASE}/api/patents/search?${params}`, {
-    method: 'GET', headers: { 'Accept': 'application/json' },
-  });
-  if (!resp.ok) {
-    const errData = await resp.json().catch(() => ({}));
-    throw new Error(errData.detail || `API returned ${resp.status}`);
+  const url = `${PROXY_BASE}/api/patents/search?${params}`;
+  const maxRetries = 2;
+  let lastErr;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const resp = await fetch(url, {
+        method: 'GET', headers: { 'Accept': 'application/json' },
+      });
+      if (resp.ok) return resp.json();
+      // Retry on server errors (500+), but not client errors (400, 404)
+      const errData = await resp.json().catch(() => ({}));
+      lastErr = new Error(errData.detail || `API returned ${resp.status}`);
+      if (resp.status < 500 || attempt === maxRetries) throw lastErr;
+    } catch (err) {
+      lastErr = err;
+      if (attempt === maxRetries) throw lastErr;
+    }
+    // Wait before retrying: 2s, then 4s
+    await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
   }
-  return resp.json();
+  throw lastErr;
 }
 
 function extractResults(data) {
