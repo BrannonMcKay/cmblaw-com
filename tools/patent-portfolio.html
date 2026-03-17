@@ -1498,7 +1498,7 @@ async function searchPatents(query) {
     }
 
     const data = await resp.json();
-    const results = data.patentFileWrapperSearchResults || data.results || [];
+    const results = data.patentFileWrapperDataBag || data.patentFileWrapperSearchResults || data.results || [];
 
     if (!results.length) {
       showState('errorState');
