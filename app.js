@@ -125,6 +125,69 @@
     });
   });
 
+  /* ─── Tools Dropdown ─── */
+  var toolsTrigger = document.getElementById("toolsTrigger");
+  var toolsDropdown = document.getElementById("toolsDropdown");
+  var toolsOverlay = document.getElementById("toolsOverlay");
+  var toolsClose = document.getElementById("toolsClose");
+  var mobileToolsToggle = document.getElementById("mobileToolsToggle");
+  var mobileToolsSub = document.getElementById("mobileToolsSub");
+
+  function openTools() {
+    toolsDropdown.classList.add("active");
+    toolsDropdown.setAttribute("aria-hidden", "false");
+    toolsOverlay.classList.add("active");
+    if (toolsTrigger) {
+      toolsTrigger.classList.add("active");
+      toolsTrigger.setAttribute("aria-expanded", "true");
+    }
+  }
+
+  function closeTools() {
+    toolsDropdown.classList.remove("active");
+    toolsDropdown.setAttribute("aria-hidden", "true");
+    toolsOverlay.classList.remove("active");
+    if (toolsTrigger) {
+      toolsTrigger.classList.remove("active");
+      toolsTrigger.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function toggleTools(e) {
+    e.preventDefault();
+    if (toolsDropdown.classList.contains("active")) {
+      closeTools();
+    } else {
+      openTools();
+    }
+  }
+
+  if (toolsTrigger) {
+    toolsTrigger.addEventListener("click", toggleTools);
+  }
+  if (toolsClose) {
+    toolsClose.addEventListener("click", closeTools);
+  }
+  if (toolsOverlay) {
+    toolsOverlay.addEventListener("click", closeTools);
+  }
+
+  // Close tools dropdown on Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && toolsDropdown.classList.contains("active")) {
+      closeTools();
+    }
+  });
+
+  // Mobile tools submenu toggle
+  if (mobileToolsToggle) {
+    mobileToolsToggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      var isOpen = mobileToolsSub.classList.toggle("active");
+      mobileToolsToggle.classList.toggle("active", isOpen);
+    });
+  }
+
   /* ─── Team Modal ─── */
   var modalOverlay = document.getElementById("teamModal");
   var modalName = document.getElementById("modalName");
