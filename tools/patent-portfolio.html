@@ -325,6 +325,58 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 }
 
+.custom-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.custom-range-inputs.hidden { display: none; }
+.date-input {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  transition: border-color var(--transition-interactive);
+}
+.date-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+.date-range-sep {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.progress-container {
+  margin-top: var(--space-4);
+  width: 100%;
+  max-width: 320px;
+}
+.progress-container.hidden { display: none; }
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-surface-offset);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 300ms ease;
+}
+.progress-text {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
 .search-submit {
   padding: var(--space-3) var(--space-5);
   background: var(--color-primary);
@@ -1060,11 +1112,18 @@
         <input type="text" class="search-input" id="searchInput" placeholder="e.g. Apple Inc., Google LLC, Samsung Electronics" aria-label="Search entity name" required>
       </div>
       <select class="date-range-select" id="dateRange" aria-label="Filing date range">
+        <option value="1">Past year</option>
         <option value="3">Last 3 years</option>
         <option value="5" selected>Last 5 years</option>
         <option value="10">Last 10 years</option>
         <option value="all">All time</option>
+        <option value="custom">Custom range</option>
       </select>
+      <div class="custom-range-inputs hidden" id="customRangeInputs">
+        <input type="date" class="date-input" id="dateFrom" aria-label="Start date">
+        <span class="date-range-sep">to</span>
+        <input type="date" class="date-input" id="dateTo" aria-label="End date">
+      </div>
       <button type="submit" class="search-submit" id="searchBtn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Search
@@ -1091,8 +1150,14 @@
   <!-- Loading State -->
   <div class="state-message hidden" id="loadingState">
     <div class="spinner"></div>
-    <div class="state-title">Searching USPTO Database</div>
-    <div class="state-desc">Fetching patent data from the USPTO Open Data Portal...</div>
+    <div class="state-title" id="loadingTitle">Searching USPTO Database</div>
+    <div class="state-desc" id="loadingDesc">Fetching patent data from the USPTO Open Data Portal...</div>
+    <div class="progress-container hidden" id="progressContainer">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText"></div>
+    </div>
   </div>
 
   <!-- Error State -->
@@ -1495,71 +1560,209 @@ function normalizePatents(raw) {
 /* ─── API Search ─── */
 const PROXY_BASE = 'https://examiner-api.cmblaw.com';
 const API_LIMIT = 100;
+const FIELDS = [
+  'applicationNumberText',
+  'applicationMetaData.patentNumber',
+  'applicationMetaData.firstApplicantName',
+  'applicationMetaData.inventionTitle',
+  'applicationMetaData.filingDate',
+  'applicationMetaData.grantDate',
+  'applicationMetaData.applicationStatusDescriptionText',
+  'applicationMetaData.applicationTypeLabelName'
+].join(',');
+const fmtDate = d => d.toISOString().slice(0, 10);
 
-function getDateRange() {
+/* Resolve the user-selected date range to {start, end} Date objects or null for all-time */
+function getDateBounds() {
   const sel = $('#dateRange');
-  if (!sel) return '';
-  const years = parseInt(sel.value, 10);
-  if (!years || isNaN(years)) return ''; // "All Time"
+  if (!sel) return null;
+  const val = sel.value;
   const now = new Date();
-  const start = new Date(now.getFullYear() - years, now.getMonth(), now.getDate());
-  const fmt = d => d.toISOString().slice(0, 10);
-  return ` AND applicationMetaData.filingDate:[${fmt(start)} TO ${fmt(now)}]`;
+
+  if (val === 'custom') {
+    const from = $('#dateFrom').value;
+    const to = $('#dateTo').value;
+    if (from && to) return { start: new Date(from), end: new Date(to) };
+    if (from) return { start: new Date(from), end: now };
+    if (to) return { start: new Date('1790-01-01'), end: new Date(to) };
+    return null;
+  }
+  if (val === 'all') return null;
+  const years = parseInt(val, 10);
+  if (!years || isNaN(years)) return null;
+  return { start: new Date(now.getFullYear() - years, now.getMonth(), now.getDate()), end: now };
 }
 
-async function searchPatents(query) {
-  showState('loadingState');
+/* Build the base query (entity match) */
+function buildBaseQuery(query) {
   const fieldPrefix = state.searchMode === 'inventor'
     ? 'inventorBag.inventorNameText'
     : 'applicationMetaData.firstApplicantName';
-  const dateClause = getDateRange();
-  const searchQuery = `${fieldPrefix}:"${query}"${dateClause}`;
-  const fields = [
-    'applicationNumberText',
-    'applicationMetaData.patentNumber',
-    'applicationMetaData.firstApplicantName',
-    'applicationMetaData.inventionTitle',
-    'applicationMetaData.filingDate',
-    'applicationMetaData.grantDate',
-    'applicationMetaData.applicationStatusDescriptionText',
-    'applicationMetaData.applicationTypeLabelName'
-  ].join(',');
+  return `${fieldPrefix}:"${query}"`;
+}
 
-  const params = new URLSearchParams({
-    q: searchQuery,
-    limit: String(API_LIMIT),
-    fields: fields,
+/* Fetch a single page from the proxy */
+async function fetchPage(q, limit = API_LIMIT, offset = 0) {
+  const params = new URLSearchParams({ q, limit: String(limit), offset: String(offset), fields: FIELDS });
+  const resp = await fetch(`${PROXY_BASE}/api/patents/search?${params}`, {
+    method: 'GET', headers: { 'Accept': 'application/json' },
   });
-  const url = `${PROXY_BASE}/api/patents/search?${params}`;
+  if (!resp.ok) {
+    const errData = await resp.json().catch(() => ({}));
+    throw new Error(errData.detail || `API returned ${resp.status}`);
+  }
+  return resp.json();
+}
+
+function extractResults(data) {
+  return data.patentFileWrapperDataBag || data.patentFileWrapperSearchResults || data.results || [];
+}
+
+/* Split a date range into N equal sub-ranges */
+function splitRange(start, end, chunks) {
+  const s = start.getTime();
+  const span = (end.getTime() - s) / chunks;
+  const ranges = [];
+  for (let i = 0; i < chunks; i++) {
+    ranges.push({
+      start: new Date(s + span * i),
+      end: new Date(s + span * (i + 1)),
+    });
+  }
+  return ranges;
+}
+
+/* Progress UI helpers */
+function showProgress(fetched, total) {
+  const container = $('#progressContainer');
+  container.classList.remove('hidden');
+  const pct = Math.min(100, Math.round((fetched / total) * 100));
+  $('#progressFill').style.width = pct + '%';
+  $('#progressText').textContent = `Fetched ${fetched.toLocaleString()} of ${total.toLocaleString()} applications...`;
+}
+function hideProgress() {
+  $('#progressContainer').classList.add('hidden');
+  $('#progressFill').style.width = '0%';
+}
+function updateLoadingText(title, desc) {
+  $('#loadingTitle').textContent = title;
+  $('#loadingDesc').textContent = desc;
+}
+
+/* Main search — auto-paginates by splitting into time windows */
+async function searchPatents(query) {
+  showState('loadingState');
+  hideProgress();
+  updateLoadingText('Searching USPTO Database', 'Fetching patent data from the USPTO Open Data Portal...');
+
+  const bounds = getDateBounds();
+  const baseQ = buildBaseQuery(query);
 
   try {
-    const resp = await fetch(url, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' },
-    });
+    // 1. Initial probe: get total count for this entity + date range
+    let probeQ = baseQ;
+    if (bounds) probeQ += ` AND applicationMetaData.filingDate:[${fmtDate(bounds.start)} TO ${fmtDate(bounds.end)}]`;
+    const probe = await fetchPage(probeQ, 1, 0);
+    const totalCount = probe.count || 0;
 
-    if (!resp.ok) {
-      const errData = await resp.json().catch(() => ({}));
-      throw new Error(errData.detail || `API returned ${resp.status}`);
-    }
-
-    const data = await resp.json();
-    const results = data.patentFileWrapperDataBag || data.patentFileWrapperSearchResults || data.results || [];
-    const totalAvailable = data.count || results.length;
-
-    if (!results.length) {
+    if (totalCount === 0) {
       showState('errorState');
       $('#errorMessage').textContent = `No patent applications found for "${query}". Try a different spelling or check the USPTO portal directly.`;
       updateFallbackLinks(query);
       return;
     }
 
-    state.totalAvailable = totalAvailable;
-    state.patents = normalizePatents(results);
+    state.totalAvailable = totalCount;
+    let allResults = [];
+
+    if (totalCount <= API_LIMIT) {
+      // 2a. Small result set — single request gets everything
+      const data = await fetchPage(probeQ, API_LIMIT, 0);
+      allResults = extractResults(data);
+    } else {
+      // 2b. Large result set — split into time windows and fetch in parallel
+      // Determine the date range to work with
+      let rangeStart, rangeEnd;
+      if (bounds) {
+        rangeStart = bounds.start;
+        rangeEnd = bounds.end;
+      } else {
+        // All-time: use the earliest filing date from the probe's first result,
+        // or fall back to 20 years ago
+        rangeStart = new Date(new Date().getFullYear() - 20, 0, 1);
+        rangeEnd = new Date();
+      }
+
+      // Calculate how many chunks we need (each chunk should ideally be ≤ 100 results)
+      const numChunks = Math.max(2, Math.ceil(totalCount / API_LIMIT));
+      const maxChunks = 50; // safety cap
+      const chunks = Math.min(numChunks, maxChunks);
+      const ranges = splitRange(rangeStart, rangeEnd, chunks);
+
+      updateLoadingText('Fetching Complete Portfolio', `Retrieving ${totalCount.toLocaleString()} applications in ${chunks} batches...`);
+      showProgress(0, totalCount);
+
+      // Fetch all chunks in parallel with concurrency limit
+      const CONCURRENCY = 6;
+      let completed = 0;
+
+      async function fetchChunk(range) {
+        const q = `${baseQ} AND applicationMetaData.filingDate:[${fmtDate(range.start)} TO ${fmtDate(range.end)}]`;
+        // Check count for this chunk first
+        const chunkProbe = await fetchPage(q, 1, 0);
+        const chunkCount = chunkProbe.count || 0;
+        if (chunkCount === 0) {
+          completed++;
+          showProgress(allResults.length, totalCount);
+          return [];
+        }
+        // If chunk still has > 100, fetch offset pages within it
+        const chunkResults = [];
+        const pages = Math.ceil(Math.min(chunkCount, 10000) / API_LIMIT);
+        for (let p = 0; p < pages; p++) {
+          const data = await fetchPage(q, API_LIMIT, p * API_LIMIT);
+          const batch = extractResults(data);
+          chunkResults.push(...batch);
+          allResults.push(...batch);
+          showProgress(allResults.length, totalCount);
+          if (batch.length < API_LIMIT) break; // no more pages
+        }
+        completed++;
+        return chunkResults;
+      }
+
+      // Process chunks with limited concurrency
+      const queue = [...ranges];
+      const running = [];
+      while (queue.length > 0 || running.length > 0) {
+        while (running.length < CONCURRENCY && queue.length > 0) {
+          const range = queue.shift();
+          const p = fetchChunk(range).then(r => {
+            running.splice(running.indexOf(p), 1);
+            return r;
+          });
+          running.push(p);
+        }
+        if (running.length > 0) await Promise.race(running);
+      }
+    }
+
+    // Deduplicate by application number
+    const seen = new Set();
+    allResults = allResults.filter(item => {
+      const num = item.applicationNumberText || '';
+      if (!num || seen.has(num)) return false;
+      seen.add(num);
+      return true;
+    });
+
+    hideProgress();
+    state.patents = normalizePatents(allResults);
     state.isDemo = false;
     displayResults(query, false);
   } catch (err) {
     console.warn('API error:', err);
+    hideProgress();
     showState('errorState');
     $('#errorMessage').textContent = 'Could not fetch patent data. The USPTO API may be temporarily unavailable. You can search directly on the USPTO Open Data Portal or try the demo.';
     updateFallbackLinks(query);
@@ -1589,17 +1792,10 @@ function displayResults(entityName, isDemo) {
   const abandoned = state.patents.filter(p => p.status === 'abandoned').length;
 
   $('#entityName').textContent = entityName;
-  const totalAvail = state.totalAvailable || total;
-  if (!isDemo && totalAvail > total) {
-    $('#resultsBadge').textContent = `Showing ${total} of ${totalAvail.toLocaleString()} applications`;
-  } else {
-    $('#resultsBadge').textContent = `${total} application${total !== 1 ? 's' : ''}`;
-  }
+  $('#resultsBadge').textContent = `${total.toLocaleString()} application${total !== 1 ? 's' : ''}`;
   const rangeLabel = $('#dateRange') ? $('#dateRange').options[$('#dateRange').selectedIndex].text : '';
   if (isDemo) {
     $('#sourceNote').textContent = 'Demo data for illustration';
-  } else if (totalAvail > total) {
-    $('#sourceNote').textContent = `${rangeLabel} · Narrow the date range for complete results · USPTO Open Data Portal`;
   } else {
     $('#sourceNote').textContent = `${rangeLabel} · USPTO Open Data Portal`;
   }
@@ -2223,6 +2419,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initTableSearch();
   initTableSort();
   tooltip.init();
+
+  // Date range toggle for custom inputs
+  $('#dateRange').addEventListener('change', () => {
+    const isCustom = $('#dateRange').value === 'custom';
+    $('#customRangeInputs').classList.toggle('hidden', !isCustom);
+    if (isCustom && !$('#dateFrom').value) {
+      // Default custom range: 1 year ago to today
+      const now = new Date();
+      const yearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+      $('#dateTo').value = now.toISOString().slice(0, 10);
+      $('#dateFrom').value = yearAgo.toISOString().slice(0, 10);
+    }
+  });
 
   // Search form
   $('#searchForm').addEventListener('submit', (e) => {
