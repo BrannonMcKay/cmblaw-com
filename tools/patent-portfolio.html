@@ -401,28 +401,7 @@
   transform: none;
 }
 
-.btn-demo {
-  padding: var(--space-3) var(--space-5);
-  background: var(--color-surface-offset);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  transition: background var(--transition-interactive), transform var(--transition-interactive), border-color var(--transition-interactive);
-}
-.btn-demo:hover {
-  background: var(--color-surface-offset-2);
-  border-color: var(--color-primary);
-  transform: translateY(-1px);
-}
-.btn-demo:active { transform: translateY(0); }
+
 
 /* ─── Loading / States ─── */
 .state-message {
@@ -829,37 +808,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ─── Fallback Banner ─── */
-.fallback-banner {
-  display: none;
-  background: oklch(from var(--color-warning) l c h / 0.08);
-  border: 1px solid oklch(from var(--color-warning) l c h / 0.2);
-  border-radius: var(--radius-md);
-  padding: var(--space-4) var(--space-5);
-  margin-bottom: var(--space-6);
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-.fallback-banner.visible { display: flex; }
-.fallback-icon {
-  color: var(--color-warning);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.fallback-content {
-  flex: 1;
-}
-.fallback-content p {
-  font-size: var(--text-sm);
-  color: var(--color-text);
-  margin-bottom: var(--space-2);
-}
-.fallback-content a {
-  color: var(--color-primary);
-  font-weight: 600;
-  text-decoration: none;
-}
-.fallback-content a:hover { text-decoration: underline; }
 
 /* ─── Info / Education Section ─── */
 .info-section {
@@ -1128,10 +1076,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Search
       </button>
-      <button type="button" class="btn-demo" id="demoBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Try Demo
-      </button>
+
     </form>
   </div>
 
@@ -1144,7 +1089,7 @@
       </svg>
     </div>
     <div class="state-title">Explore Patent Portfolios</div>
-    <div class="state-desc">Enter a company name or inventor name above to visualize their patent activity, or click "Try Demo" to see an example.</div>
+    <div class="state-desc">Enter a company name or inventor name above to visualize their patent activity.</div>
   </div>
 
   <!-- Loading State -->
@@ -1171,19 +1116,11 @@
     <div class="state-desc" id="errorMessage">The USPTO API may be temporarily unavailable. You can search directly on the USPTO portal.</div>
     <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
       <a href="#" id="usptoFallbackLink" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">Search on USPTO Portal &rarr;</a>
-      <button type="button" class="btn btn-sm" style="border: 1px solid var(--color-border);" onclick="document.getElementById('demoBtn').click()">Load Demo Data Instead</button>
+
     </div>
   </div>
 
-  <!-- Fallback Banner (shown when API failed but demo loaded) -->
-  <div class="fallback-banner" id="fallbackBanner">
-    <span class="fallback-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    </span>
-    <div class="fallback-content">
-      <p><strong>Showing demo data.</strong> The live USPTO API is temporarily unavailable. You can <a href="#" id="fallbackPortalLink" target="_blank" rel="noopener noreferrer">search directly on the USPTO Open Data Portal &rarr;</a></p>
-    </div>
-  </div>
+
 
   <!-- Results Section -->
   <div class="results-section" id="resultsSection">
@@ -1378,7 +1315,7 @@ const state = {
   sortAsc: false,
   statusFilter: 'all',
   textFilter: '',
-  isDemo: false,
+
 };
 
 /* ─── Theme Toggle ─── */
@@ -1596,7 +1533,7 @@ function getDateBounds() {
 /* Build the base query (entity match) */
 function buildBaseQuery(query) {
   const fieldPrefix = state.searchMode === 'inventor'
-    ? 'inventorBag.inventorNameText'
+    ? 'applicationMetaData.inventorBag.inventorNameText'
     : 'applicationMetaData.firstApplicantName';
   return `${fieldPrefix}:"${query}"`;
 }
@@ -1758,13 +1695,12 @@ async function searchPatents(query) {
 
     hideProgress();
     state.patents = normalizePatents(allResults);
-    state.isDemo = false;
-    displayResults(query, false);
+    displayResults(query);
   } catch (err) {
     console.warn('API error:', err);
     hideProgress();
     showState('errorState');
-    $('#errorMessage').textContent = 'Could not fetch patent data. The USPTO API may be temporarily unavailable. You can search directly on the USPTO Open Data Portal or try the demo.';
+    $('#errorMessage').textContent = 'Could not fetch patent data. The USPTO API may be temporarily unavailable. You can search directly on the USPTO Open Data Portal.';
     updateFallbackLinks(query);
   }
 }
@@ -1773,14 +1709,11 @@ function updateFallbackLinks(query) {
   const portalUrl = `https://data.uspto.gov/search?q=${encodeURIComponent(query)}&type=patent`;
   const link = $('#usptoFallbackLink');
   if (link) link.href = portalUrl;
-  const fLink = $('#fallbackPortalLink');
-  if (fLink) fLink.href = portalUrl;
 }
 
 /* ─── Display Results ─── */
-function displayResults(entityName, isDemo) {
+function displayResults(entityName) {
   showState('results');
-  state.isDemo = isDemo;
   state.statusFilter = 'all';
   state.textFilter = '';
   $('#tableSearch').value = '';
@@ -1794,21 +1727,13 @@ function displayResults(entityName, isDemo) {
   $('#entityName').textContent = entityName;
   $('#resultsBadge').textContent = `${total.toLocaleString()} application${total !== 1 ? 's' : ''}`;
   const rangeLabel = $('#dateRange') ? $('#dateRange').options[$('#dateRange').selectedIndex].text : '';
-  if (isDemo) {
-    $('#sourceNote').textContent = 'Demo data for illustration';
-  } else {
-    $('#sourceNote').textContent = `${rangeLabel} · USPTO Open Data Portal`;
-  }
+  $('#sourceNote').textContent = `${rangeLabel} · USPTO Open Data Portal`;
 
   // Animate metric counters
   animateCounter('metricTotal', total);
   animateCounter('metricGranted', granted);
   animateCounter('metricPending', pending);
   animateCounter('metricAbandoned', abandoned);
-
-  // Show fallback banner if demo
-  $('#fallbackBanner').classList.toggle('visible', isDemo);
-  if (isDemo) updateFallbackLinks(entityName);
 
   applyFiltersAndRender();
   renderAllVisualizations();
@@ -2301,111 +2226,6 @@ function renderTrend() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   DEMO DATA
-   ═══════════════════════════════════════════════════════ */
-function generateDemoData() {
-  const titles = [
-    'System and Method for Machine Learning-Based Image Recognition',
-    'Neural Network Architecture for Natural Language Processing',
-    'Wireless Communication Protocol for IoT Devices',
-    'Apparatus for Thermal Management in Electronic Devices',
-    'Method for Secure Biometric Authentication',
-    'Display Panel with Variable Refresh Rate Technology',
-    'Battery Management System for Portable Devices',
-    'Augmented Reality Interface for Navigation',
-    'Data Compression Algorithm for Cloud Storage',
-    'Haptic Feedback System for Touch Interfaces',
-    'Camera Module with Optical Image Stabilization',
-    'Voice Recognition System with Noise Cancellation',
-    'Wearable Health Monitoring Device',
-    'Antenna Design for 5G Communication',
-    'Gesture Recognition Using Depth Sensors',
-    'Privacy-Preserving Data Analytics Platform',
-    'Edge Computing Framework for Real-Time Processing',
-    'Micro LED Display Manufacturing Method',
-    'Silicon Photonics Integrated Circuit',
-    'Autonomous Vehicle Navigation System',
-    'Blockchain-Based Supply Chain Verification',
-    'Adaptive Noise Cancellation for Audio Devices',
-    'Flexible Circuit Board Design',
-    'Multi-Modal Sensor Fusion Architecture',
-    'Power Management IC for Mobile Processors',
-    'Object Detection Using LiDAR Point Clouds',
-    'Encrypted Communication Method for Mobile Devices',
-    'User Interface for Spatial Computing Devices',
-    'Semiconductor Process for 3nm Node',
-    'Wireless Charging System with Foreign Object Detection',
-    'Computer Vision System for Quality Inspection',
-    'Solid State Battery Electrode Composition',
-    'Foldable Display Hinge Mechanism',
-    'Neural Engine for On-Device AI Inference',
-    'Digital Health Platform for Remote Patient Monitoring',
-    'Quantum Computing Error Correction Method',
-    'Photovoltaic Cell with Perovskite Layer',
-    'Smart Home Device Interoperability Protocol',
-    'Video Codec Optimization for Streaming',
-    'Magnetic Sensor Array for Stylus Input',
-    'Packaging Technology for System-in-Package Devices',
-    'Robotic Process Automation Framework',
-    'Thermal Interface Material for High-Performance Computing',
-    'Optical Fiber Connector for Data Centers',
-    'Speech Synthesis Using Transformer Models',
-    'Inertial Measurement Unit Calibration Method',
-    'RF Front-End Module for mmWave Communications',
-    'Computational Photography Pipeline',
-    'Memory Controller for High-Bandwidth Memory',
-    'Secure Enclave for Cryptographic Operations',
-  ];
-
-  const appTypes = ['Utility', 'Utility', 'Utility', 'Utility', 'Design', 'Utility', 'Utility', 'Utility', 'Design'];
-  const statuses = [
-    { desc: 'Patented Case', status: 'patented' },
-    { desc: 'Patented Case', status: 'patented' },
-    { desc: 'Patented Case', status: 'patented' },
-    { desc: 'Docketed New Case - Ready for Examination', status: 'pending' },
-    { desc: 'Application Dispatched from Preexam', status: 'pending' },
-    { desc: 'Abandoned -- Failure to Respond to an Office Action', status: 'abandoned' },
-    { desc: 'Patented Case', status: 'patented' },
-    { desc: 'Patented Case', status: 'patented' },
-    { desc: 'Notice of Allowance Mailed', status: 'pending' },
-  ];
-
-  return titles.map((title, i) => {
-    // Distribute evenly across years with some randomness
-    const baseYear = 2015 + (i % 9);
-    const year = baseYear;
-    const month = Math.floor(Math.random() * 12) + 1;
-    const day = Math.floor(Math.random() * 28) + 1;
-    const filingDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-
-    const statusInfo = statuses[i % statuses.length];
-    const appNum = `${14 + Math.floor(i / 10)}${String(100 + (i * 7 + 234) % 900).padStart(3, '0')}${String(100 + (i * 13 + 567) % 900).padStart(3, '0')}`;
-    const patentNum = statusInfo.status === 'patented' ? `${10000000 + i * 71234 + 234567}` : '';
-
-    let grantDate = '';
-    if (patentNum) {
-      const gYear = year + 2 + Math.floor(Math.random() * 2);
-      const gMonth = Math.floor(Math.random() * 12) + 1;
-      const gDay = Math.floor(Math.random() * 28) + 1;
-      grantDate = `${gYear}-${String(gMonth).padStart(2, '0')}-${String(gDay).padStart(2, '0')}`;
-    }
-
-    return {
-      appNumber: appNum,
-      patentNumber: patentNum,
-      title,
-      filingDate,
-      grantDate,
-      statusDesc: statusInfo.desc,
-      appType: appTypes[i % appTypes.length],
-      applicant: 'Apple Inc.',
-      status: statusInfo.status,
-      filingYear: year,
-    };
-  });
-}
-
-/* ═══════════════════════════════════════════════════════
    INITIALIZATION
    ═══════════════════════════════════════════════════════ */
 
@@ -2439,14 +2259,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const query = $('#searchInput').value.trim();
     if (!query) return;
     searchPatents(query);
-  });
-
-  // Demo button
-  $('#demoBtn').addEventListener('click', () => {
-    state.patents = generateDemoData();
-    state.isDemo = true;
-    $('#searchInput').value = 'Apple Inc.';
-    displayResults('Apple Inc.', true);
   });
 
   // Handle resize for visualizations
