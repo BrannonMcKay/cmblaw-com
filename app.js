@@ -59,11 +59,14 @@
   /* ─── Theme Toggle ─── */
   var themeToggle = document.querySelector("[data-theme-toggle]");
   var root = document.documentElement;
-  var theme = window.location.hash === "#dark"
-    ? "dark"
-    : window.matchMedia("(prefers-color-scheme: dark)").matches
+  var savedTheme = localStorage.getItem('cmb-theme');
+  var theme = savedTheme
+    ? savedTheme
+    : window.location.hash === "#dark"
       ? "dark"
-      : "light";
+      : window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
   root.setAttribute("data-theme", theme);
   updateThemeIcon();
 
@@ -71,6 +74,7 @@
     themeToggle.addEventListener("click", function () {
       theme = theme === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", theme);
+      localStorage.setItem('cmb-theme', theme);
       themeToggle.setAttribute(
         "aria-label",
         "Switch to " + (theme === "dark" ? "light" : "dark") + " mode"
