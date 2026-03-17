@@ -1083,7 +1083,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
     </span>
     <div class="fallback-content">
-      <p><strong>Showing demo data.</strong> The live USPTO API connection requires browser verification. For live results, you can <a href="#" id="fallbackPortalLink" target="_blank" rel="noopener noreferrer">search directly on the USPTO Open Data Portal &rarr;</a></p>
+      <p><strong>Showing demo data.</strong> The live USPTO API is temporarily unavailable. You can <a href="#" id="fallbackPortalLink" target="_blank" rel="noopener noreferrer">search directly on the USPTO Open Data Portal &rarr;</a></p>
     </div>
   </div>
 
@@ -1460,6 +1460,8 @@ function normalizePatents(raw) {
 }
 
 /* ─── API Search ─── */
+const PROXY_BASE = 'https://examiner-api.cmblaw.com';
+
 async function searchPatents(query) {
   showState('loadingState');
   const fieldPrefix = state.searchMode === 'inventor'
@@ -1477,22 +1479,28 @@ async function searchPatents(query) {
     'applicationMetaData.applicationTypeLabelName'
   ].join(',');
 
-  const url = `https://api.uspto.gov/api/v1/patent/applications/search?q=${encodeURIComponent(searchQuery)}&limit=100&fields=${encodeURIComponent(fields)}`;
+  const params = new URLSearchParams({
+    q: searchQuery,
+    limit: '100',
+    fields: fields,
+  });
+  const url = `${PROXY_BASE}/api/patents/search?${params}`;
 
   try {
     const resp = await fetch(url, {
       method: 'GET',
       headers: { 'Accept': 'application/json' },
-      credentials: 'include',
     });
 
-    if (!resp.ok) throw new Error(`API returned ${resp.status}`);
+    if (!resp.ok) {
+      const errData = await resp.json().catch(() => ({}));
+      throw new Error(errData.detail || `API returned ${resp.status}`);
+    }
 
     const data = await resp.json();
     const results = data.patentFileWrapperSearchResults || data.results || [];
 
     if (!results.length) {
-      // No results found
       showState('errorState');
       $('#errorMessage').textContent = `No patent applications found for "${query}". Try a different spelling or check the USPTO portal directly.`;
       updateFallbackLinks(query);
@@ -1505,7 +1513,7 @@ async function searchPatents(query) {
   } catch (err) {
     console.warn('API error:', err);
     showState('errorState');
-    $('#errorMessage').textContent = 'The USPTO API requires browser verification (AWS WAF). You can search directly on the USPTO Open Data Portal or try the demo.';
+    $('#errorMessage').textContent = 'Could not fetch patent data. The USPTO API may be temporarily unavailable. You can search directly on the USPTO Open Data Portal or try the demo.';
     updateFallbackLinks(query);
   }
 }
@@ -2141,21 +2149,6 @@ function generateDemoData() {
   });
 }
 
-/* ─── Load WAF Challenge Script ─── */
-function loadWAFScript() {
-  return new Promise((resolve) => {
-    const script = document.createElement('script');
-    script.src = 'https://0dd6fc7fe1e2.edge.sdk.awswaf.com/0dd6fc7fe1e2/cee3ab3bc019/challenge.js';
-    script.async = true;
-    script.onload = () => {
-      // Give WAF time to set the token
-      setTimeout(resolve, 2000);
-    };
-    script.onerror = () => resolve(); // Don't block on failure
-    document.head.appendChild(script);
-  });
-}
-
 /* ═══════════════════════════════════════════════════════
    INITIALIZATION
    ═══════════════════════════════════════════════════════ */
@@ -2170,9 +2163,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTableSearch();
   initTableSort();
   tooltip.init();
-
-  // Load WAF script in background
-  loadWAFScript();
 
   // Search form
   $('#searchForm').addEventListener('submit', (e) => {
