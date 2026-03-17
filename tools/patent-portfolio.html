@@ -298,6 +298,33 @@
 }
 .search-input::placeholder { color: var(--color-text-faint); }
 
+.date-range-select {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: calc(var(--space-4) + 16px);
+  min-width: 130px;
+}
+.date-range-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.1);
+}
+[data-theme="dark"] .date-range-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+}
+
 .search-submit {
   padding: var(--space-3) var(--space-5);
   background: var(--color-primary);
@@ -1032,6 +1059,12 @@
         </span>
         <input type="text" class="search-input" id="searchInput" placeholder="e.g. Apple Inc., Google LLC, Samsung Electronics" aria-label="Search entity name" required>
       </div>
+      <select class="date-range-select" id="dateRange" aria-label="Filing date range">
+        <option value="3">Last 3 years</option>
+        <option value="5" selected>Last 5 years</option>
+        <option value="10">Last 10 years</option>
+        <option value="all">All time</option>
+      </select>
       <button type="submit" class="search-submit" id="searchBtn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Search
@@ -1461,13 +1494,26 @@ function normalizePatents(raw) {
 
 /* ─── API Search ─── */
 const PROXY_BASE = 'https://examiner-api.cmblaw.com';
+const API_LIMIT = 500;
+
+function getDateRange() {
+  const sel = $('#dateRange');
+  if (!sel) return '';
+  const years = parseInt(sel.value, 10);
+  if (!years || isNaN(years)) return ''; // "All Time"
+  const now = new Date();
+  const start = new Date(now.getFullYear() - years, now.getMonth(), now.getDate());
+  const fmt = d => d.toISOString().slice(0, 10);
+  return ` AND applicationMetaData.filingDate:[${fmt(start)} TO ${fmt(now)}]`;
+}
 
 async function searchPatents(query) {
   showState('loadingState');
   const fieldPrefix = state.searchMode === 'inventor'
     ? 'inventorBag.inventorNameText'
     : 'applicationMetaData.firstApplicantName';
-  const searchQuery = `${fieldPrefix}:"${query}"`;
+  const dateClause = getDateRange();
+  const searchQuery = `${fieldPrefix}:"${query}"${dateClause}`;
   const fields = [
     'applicationNumberText',
     'applicationMetaData.patentNumber',
@@ -1481,7 +1527,7 @@ async function searchPatents(query) {
 
   const params = new URLSearchParams({
     q: searchQuery,
-    limit: '100',
+    limit: String(API_LIMIT),
     fields: fields,
   });
   const url = `${PROXY_BASE}/api/patents/search?${params}`;
@@ -1499,6 +1545,7 @@ async function searchPatents(query) {
 
     const data = await resp.json();
     const results = data.patentFileWrapperDataBag || data.patentFileWrapperSearchResults || data.results || [];
+    const totalAvailable = data.count || results.length;
 
     if (!results.length) {
       showState('errorState');
@@ -1507,6 +1554,7 @@ async function searchPatents(query) {
       return;
     }
 
+    state.totalAvailable = totalAvailable;
     state.patents = normalizePatents(results);
     state.isDemo = false;
     displayResults(query, false);
@@ -1541,8 +1589,20 @@ function displayResults(entityName, isDemo) {
   const abandoned = state.patents.filter(p => p.status === 'abandoned').length;
 
   $('#entityName').textContent = entityName;
-  $('#resultsBadge').textContent = `${total} application${total !== 1 ? 's' : ''}`;
-  $('#sourceNote').textContent = isDemo ? 'Demo data for illustration' : 'Source: USPTO Open Data Portal';
+  const totalAvail = state.totalAvailable || total;
+  if (!isDemo && totalAvail > total) {
+    $('#resultsBadge').textContent = `Showing ${total} of ${totalAvail.toLocaleString()} applications`;
+  } else {
+    $('#resultsBadge').textContent = `${total} application${total !== 1 ? 's' : ''}`;
+  }
+  const rangeLabel = $('#dateRange') ? $('#dateRange').options[$('#dateRange').selectedIndex].text : '';
+  if (isDemo) {
+    $('#sourceNote').textContent = 'Demo data for illustration';
+  } else if (totalAvail > total) {
+    $('#sourceNote').textContent = `${rangeLabel} · Narrow the date range for complete results · USPTO Open Data Portal`;
+  } else {
+    $('#sourceNote').textContent = `${rangeLabel} · USPTO Open Data Portal`;
+  }
 
   // Animate metric counters
   animateCounter('metricTotal', total);
