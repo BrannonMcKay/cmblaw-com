@@ -441,6 +441,35 @@
   font-weight: 600;
 }
 
+/* ─── Toggle Groups Layout ─── */
+.toolbar-toggles {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.toggle-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Track Type Notice ─── */
+.track-notice {
+  font-size: var(--text-xs);
+  color: var(--color-warning);
+  background: oklch(from var(--color-warning) l c h / 0.08);
+  border: 1px solid oklch(from var(--color-warning) l c h / 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 /* ─── Results Header ─── */
 .results-header {
   margin-bottom: var(--space-6);
@@ -1050,9 +1079,16 @@
           <span id="shareLinkText">Copy Link</span>
         </button>
       </div>
-      <div class="period-toggle" role="radiogroup" aria-label="Time period">
-        <button class="period-btn active" role="radio" aria-checked="true" data-period="recent">Post Alice</button>
-        <button class="period-btn" role="radio" aria-checked="false" data-period="alltime">All Time</button>
+      <div class="toolbar-toggles">
+        <div class="period-toggle" role="radiogroup" aria-label="Track type">
+          <button class="period-btn" role="radio" aria-checked="false" data-track="trackone">Track One</button>
+          <button class="period-btn active" role="radio" aria-checked="true" data-track="all">All</button>
+          <button class="period-btn" role="radio" aria-checked="false" data-track="regular">Regular</button>
+        </div>
+        <div class="period-toggle" role="radiogroup" aria-label="Time period">
+          <button class="period-btn active" role="radio" aria-checked="true" data-period="recent">Post Alice</button>
+          <button class="period-btn" role="radio" aria-checked="false" data-period="alltime">All Time</button>
+        </div>
       </div>
     </div>
 
@@ -1088,7 +1124,7 @@
 
     <!-- Data source note -->
     <div class="data-source-note" id="dataSourceNote" style="display: none;">
-      Showing <span id="periodLabel">Post Alice</span> statistics. Data sources: USPTO PatEx (through June 2023) and OA Rejection API (2008–2025).
+      Showing <span id="trackLabel"></span><span id="periodLabel">Post Alice</span> statistics. Data sources: USPTO PatEx (through June 2023) and OA Rejection API (2008–2025).
     </div>
 
   </div>
@@ -1141,6 +1177,7 @@ const API_BASE = window.EXAMINER_API_BASE || 'https://examiner-api.cmblaw.com';
 const state = {
   searchMode: 'examiner', // 'examiner' | 'application'
   period: 'recent',
+  trackType: 'all', // 'all' | 'trackone' | 'regular'
   currentExaminer: null,
   averages: null,
   appInfo: null,
@@ -1169,6 +1206,7 @@ const els = {
   resultsContent: $('#resultsContent'),
   resultsArea: $('#resultsArea'),
   dataSourceNote: $('#dataSourceNote'),
+  trackLabel: $('#trackLabel'),
   periodLabel: $('#periodLabel'),
 };
 
@@ -1254,16 +1292,36 @@ function initTabs() {
 
 /* ─── Period toggle ─── */
 function initPeriodToggle() {
-  $$('.period-btn').forEach(btn => {
+  $$('[data-period]').forEach(btn => {
     btn.addEventListener('click', () => {
       if (btn.dataset.period === state.period) return;
       state.period = btn.dataset.period;
-      $$('.period-btn').forEach(b => {
+      $$('[data-period]').forEach(b => {
         b.classList.toggle('active', b.dataset.period === state.period);
         b.setAttribute('aria-checked', b.dataset.period === state.period);
       });
       els.periodLabel.textContent = state.period === 'recent' ? 'Post Alice' : 'all-time';
-      // Reload data if examiner is selected
+      // Clear cached averages when period changes
+      state.averages = null;
+      if (state.currentExaminer) {
+        loadExaminerData(state.currentExaminer);
+      }
+    });
+  });
+}
+
+/* ─── Track type toggle ─── */
+function initTrackToggle() {
+  $$('[data-track]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.track === state.trackType) return;
+      state.trackType = btn.dataset.track;
+      $$('[data-track]').forEach(b => {
+        b.classList.toggle('active', b.dataset.track === state.trackType);
+        b.setAttribute('aria-checked', b.dataset.track === state.trackType);
+      });
+      // Clear cached averages when track type changes
+      state.averages = null;
       if (state.currentExaminer) {
         loadExaminerData(state.currentExaminer);
       }
@@ -1331,7 +1389,7 @@ async function fetchSuggestions(query) {
   els.autocomplete.classList.add('visible');
   state.highlightIndex = -1;
   try {
-    const results = await apiFetch(`/api/examiners/search?q=${encodeURIComponent(query)}&period=${state.period}`);
+    const results = await apiFetch(`/api/examiners/search?q=${encodeURIComponent(query)}&period=${state.period}&track_type=${state.trackType}`);
     state.suggestions = results;
     if (results.length === 0) {
       els.autocomplete.innerHTML = '<div class="autocomplete-empty">No examiners found</div>';
@@ -1413,18 +1471,25 @@ async function lookupApplication(appNum) {
 async function loadExaminerData(name) {
   showLoading();
   try {
+    const trackParam = `&track_type=${state.trackType}`;
     const [examinerData, avgData] = await Promise.all([
-      apiFetch(`/api/examiners/${encodeURIComponent(name)}?period=${state.period}`),
-      state.averages && state.averages._period === state.period
+      apiFetch(`/api/examiners/${encodeURIComponent(name)}?period=${state.period}${trackParam}`),
+      state.averages && state.averages._period === state.period && state.averages._trackType === state.trackType
         ? Promise.resolve(state.averages)
-        : apiFetch(`/api/averages?period=${state.period}`),
+        : apiFetch(`/api/averages?period=${state.period}${trackParam}`),
     ]);
     avgData._period = state.period;
+    avgData._trackType = state.trackType;
     state.averages = avgData;
     state.currentExaminer = name;
     renderResults(examinerData, avgData);
   } catch (err) {
-    showError('Could not load examiner data. The examiner may not exist or the service may be unavailable.');
+    const msg = err.message || '';
+    if (state.trackType !== 'all' && (msg.includes('No Track') || msg.includes('No Regular') || msg.includes('404'))) {
+      showError(`This examiner has no ${state.trackType === 'trackone' ? 'Track One' : 'Regular'} applications in the selected time period. Try switching to "All" to see their stats.`);
+    } else {
+      showError('Could not load examiner data. The examiner may not exist or the service may be unavailable.');
+    }
   }
 }
 
@@ -1453,6 +1518,8 @@ function showResults() {
   els.resultsContent.style.display = 'block';
   els.toolbar.style.display = 'flex';
   els.dataSourceNote.style.display = 'block';
+  const trackLabels = { all: '', trackone: 'Track One ', regular: 'Regular ' };
+  els.trackLabel.textContent = trackLabels[state.trackType] || '';
   els.periodLabel.textContent = state.period === 'recent' ? 'Post Alice' : 'all-time';
 }
 
@@ -1461,6 +1528,8 @@ function renderResults(data, avg) {
   const html = [];
 
   // Results header
+  const trackLabels = { all: '', trackone: 'Track One', regular: 'Regular' };
+  const trackLabel = trackLabels[state.trackType] || '';
   html.push(`
     <div class="results-section results-header">
       <div class="examiner-heading">
@@ -1470,7 +1539,7 @@ function renderResults(data, avg) {
           AU ${escHtml(String(data.art_unit))}
         </span>
       </div>
-      <span class="app-count-label">${data.total_applications.toLocaleString()} applications</span>
+      <span class="app-count-label">${data.total_applications.toLocaleString()}${trackLabel ? ' ' + trackLabel : ''} applications</span>
     </div>
   `);
 
@@ -1728,6 +1797,8 @@ function copyExaminerLink() {
   if (!state.currentExaminer) return;
   const url = new URL(window.location.href.split('?')[0]);
   url.searchParams.set('examiner', state.currentExaminer);
+  if (state.trackType !== 'all') url.searchParams.set('track', state.trackType);
+  if (state.period !== 'recent') url.searchParams.set('period', state.period);
   navigator.clipboard.writeText(url.toString()).then(() => {
     const btn = document.getElementById('shareLinkBtn');
     const txt = document.getElementById('shareLinkText');
@@ -1743,6 +1814,27 @@ function copyExaminerLink() {
 /* ─── URL Parameter Loading ─── */
 function loadFromURL() {
   const params = new URLSearchParams(window.location.search);
+
+  // Restore track type from URL
+  const track = params.get('track');
+  if (track && ['trackone', 'regular', 'all'].includes(track)) {
+    state.trackType = track;
+    $$('[data-track]').forEach(b => {
+      b.classList.toggle('active', b.dataset.track === state.trackType);
+      b.setAttribute('aria-checked', b.dataset.track === state.trackType);
+    });
+  }
+
+  // Restore period from URL
+  const period = params.get('period');
+  if (period && ['recent', 'alltime'].includes(period)) {
+    state.period = period;
+    $$('[data-period]').forEach(b => {
+      b.classList.toggle('active', b.dataset.period === state.period);
+      b.setAttribute('aria-checked', b.dataset.period === state.period);
+    });
+  }
+
   const examiner = params.get('examiner');
   if (examiner) {
     els.searchInput.value = examiner;
@@ -1756,6 +1848,7 @@ initMobileMenu();
 initHeaderScroll();
 initTabs();
 initPeriodToggle();
+initTrackToggle();
 initAutocomplete();
 initSearchForm();
 loadFromURL();
