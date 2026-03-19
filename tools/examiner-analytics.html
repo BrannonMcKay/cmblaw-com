@@ -1051,7 +1051,7 @@
         </button>
       </div>
       <div class="period-toggle" role="radiogroup" aria-label="Time period">
-        <button class="period-btn active" role="radio" aria-checked="true" data-period="recent">2015+</button>
+        <button class="period-btn active" role="radio" aria-checked="true" data-period="recent">Post Alice</button>
         <button class="period-btn" role="radio" aria-checked="false" data-period="alltime">All Time</button>
       </div>
     </div>
@@ -1088,7 +1088,7 @@
 
     <!-- Data source note -->
     <div class="data-source-note" id="dataSourceNote" style="display: none;">
-      Showing <span id="periodLabel">2015+</span> statistics. Data sources: USPTO PatEx (through June 2023) and OA Rejection API (2008–2025).
+      Showing <span id="periodLabel">Post Alice</span> statistics. Data sources: USPTO PatEx (through June 2023) and OA Rejection API (2008–2025).
     </div>
 
   </div>
@@ -1262,7 +1262,7 @@ function initPeriodToggle() {
         b.classList.toggle('active', b.dataset.period === state.period);
         b.setAttribute('aria-checked', b.dataset.period === state.period);
       });
-      els.periodLabel.textContent = state.period === 'recent' ? '2015+' : 'all-time';
+      els.periodLabel.textContent = state.period === 'recent' ? 'Post Alice' : 'all-time';
       // Reload data if examiner is selected
       if (state.currentExaminer) {
         loadExaminerData(state.currentExaminer);
@@ -1453,7 +1453,7 @@ function showResults() {
   els.resultsContent.style.display = 'block';
   els.toolbar.style.display = 'flex';
   els.dataSourceNote.style.display = 'block';
-  els.periodLabel.textContent = state.period === 'recent' ? '2015+' : 'all-time';
+  els.periodLabel.textContent = state.period === 'recent' ? 'Post Alice' : 'all-time';
 }
 
 /* ─── Render Results ─── */
