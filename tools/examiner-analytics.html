@@ -556,7 +556,7 @@
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 1024px) {
-  .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+  .metrics-grid { grid-template-columns: repeat(5, 1fr); }
 }
 .metric-card {
   background: var(--color-surface);
@@ -1008,6 +1008,7 @@
       <a href="../index.html#advantage">Why CMB</a>
       <a href="../index.html#contact">Contact</a>
       <a href="#" class="active">Tools</a>
+      <a href="art-unit-analytics.html" style="font-size: var(--text-xs); color: var(--color-text-faint);">Art Unit Analytics</a>
       <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent); font-weight: 600;">cmblaw.ai</a>
       <a href="https://secure.lawpay.com/pages/claytonmckayandbaileypc/operating" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">Pay Invoice</a>
     </nav>
@@ -1588,15 +1589,23 @@ function renderMetrics(data, avg) {
       higherBetter: true,
     },
     {
-      label: 'Avg RCEs',
-      value: fmtNum(data.avg_rce_before_allowance),
-      compare: compareStat(data.avg_rce_before_allowance, avg.avg_rce_before_allowance, false, false),
-      higherBetter: false,
+      label: 'First Action Allowance',
+      value: data.first_action_allowance_rate != null ? fmtPct(data.first_action_allowance_rate) : '—',
+      compare: data.first_action_allowance_rate != null && avg.first_action_allowance_rate != null
+        ? compareStat(data.first_action_allowance_rate, avg.first_action_allowance_rate, true, true)
+        : { cls: 'neutral', icon: '', text: 'No comparison data' },
+      higherBetter: true,
     },
     {
       label: 'Avg Office Actions',
       value: fmtNum(data.avg_office_actions),
       compare: compareStat(data.avg_office_actions, avg.avg_office_actions, false, false),
+      higherBetter: false,
+    },
+    {
+      label: 'Avg RCEs',
+      value: fmtNum(data.avg_rce_before_allowance),
+      compare: compareStat(data.avg_rce_before_allowance, avg.avg_rce_before_allowance, false, false),
       higherBetter: false,
     },
     {
