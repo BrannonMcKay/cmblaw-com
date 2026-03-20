@@ -279,7 +279,7 @@
 }
 @media (min-width: 640px) {
   .tools-list {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-4);
   }
 }
@@ -837,7 +837,7 @@
 }
 @media (min-width: 768px) {
   .advantage-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-12);
   }
 }
@@ -857,7 +857,7 @@
 }
 .advantage-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: var(--space-4);
 }
 .stat-card {
@@ -887,7 +887,7 @@
 }
 @media (min-width: 768px) {
   .contact-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-12);
   }
 }
@@ -967,7 +967,7 @@
 }
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: var(--space-4);
 }
 @media (max-width: 480px) {
@@ -1627,6 +1627,7 @@
   </a>
   <div class="mobile-tools-sub" id="mobileToolsSub">
     <a href="./tools/examiner-analytics.html" data-nav-link>Examiner Analytics<span class="mobile-tool-desc">USPTO patent examiner allowance rates and trends</span></a>
+    <a href="./tools/art-unit-analytics.html" data-nav-link>Art Unit Analytics<span class="mobile-tool-desc">Art unit allowance rates, rejection outcomes, and top examiners</span></a>
     <a href="./tools/patent-portfolio.html" data-nav-link>Patent Portfolio Explorer<span class="mobile-tool-desc">Search and visualize any company’s patent portfolio</span></a>
   </div>
   <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">AI Agent API</a>
@@ -1651,6 +1652,16 @@
         <div class="tool-card-body">
           <div class="tool-card-name">Examiner Analytics</div>
           <div class="tool-card-desc">USPTO patent examiner allowance rates and trends</div>
+        </div>
+        <svg class="tool-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="./tools/art-unit-analytics.html" class="tool-card">
+        <div class="tool-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </div>
+        <div class="tool-card-body">
+          <div class="tool-card-name">Art Unit Analytics</div>
+          <div class="tool-card-desc">Art unit allowance rates, rejection outcomes, and top examiners</div>
         </div>
         <svg class="tool-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
@@ -2116,6 +2127,7 @@ POST <span class="str">api.cmblaw.ai/api/v1/trademark</span>
       <div class="footer-links">
         <h4>Tools</h4>
         <a href="./tools/examiner-analytics.html">Examiner Analytics</a>
+        <a href="./tools/art-unit-analytics.html">Art Unit Analytics</a>
         <a href="./tools/patent-portfolio.html">Patent Portfolio Explorer</a>
         <a href="https://cmblaw.ai" target="_blank" rel="noopener noreferrer">AI Agent API →</a>
       </div>
