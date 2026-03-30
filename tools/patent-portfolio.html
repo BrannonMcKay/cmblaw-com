@@ -1821,8 +1821,15 @@ async function fetchPage(q, limit = API_LIMIT, offset = 0) {
         method: 'GET', headers: { 'Accept': 'application/json' },
       });
       if (resp.ok) return resp.json();
-      // Retry on server errors (500+), but not client errors (400, 404)
       const errData = await resp.json().catch(() => ({}));
+      // 404 = no matching records, return empty (not an error)
+      if (resp.status === 404) return { count: 0, patentFileWrapperDataBag: [] };
+      // 429 = rate limited, retry with longer backoff
+      if (resp.status === 429) {
+        lastErr = new Error('Rate limited (429)');
+        if (attempt < maxRetries) { await new Promise(r => setTimeout(r, 3000 * (attempt + 1))); continue; }
+        throw lastErr;
+      }
       lastErr = new Error(errData.detail || `API returned ${resp.status}`);
       if (resp.status < 500 || attempt === maxRetries) throw lastErr;
     } catch (err) {
