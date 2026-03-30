@@ -1946,7 +1946,7 @@ async function searchPatents(query) {
           chunkResults.push(...batch);
           allResults.push(...batch);
           showProgress(allResults.length, totalCount);
-          if (batch.length < API_LIMIT || dedup.size >= totalCount) break; // no more pages or already have everything
+          if (batch.length < API_LIMIT) break; // no more pages
         }
         completed++;
         return chunkResults;
