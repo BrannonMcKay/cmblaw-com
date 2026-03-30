@@ -2012,7 +2012,7 @@ function displayResults(entityName) {
   $('#entityName').textContent = entityName;
   $('#resultsBadge').textContent = `${total.toLocaleString()} application${total !== 1 ? 's' : ''}`;
   const rangeLabel = $('#dateRange') ? $('#dateRange').options[$('#dateRange').selectedIndex].text : '';
-  $('#sourceNote').textContent = `${rangeLabel} · USPTO Open Data Portal`;
+  $('#sourceNote').textContent = `${rangeLabel} · USPTO Open Data Portal · Pending applications not yet published (typically 0–18 months from filing) are not included`;
 
   // Animate metric counters
   animateCounter('metricTotal', total);
