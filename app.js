@@ -45,8 +45,7 @@
       bio: "<p>Jon Hobbs brings over two decades of patent law experience spanning a wide range of technologies, products, and processes. He has worked with Fortune 100 clients including Verizon, Yahoo, Capital One, Hitachi, and Toyota, prosecuting patents in artificial intelligence, big data processing, mobile communications, computer vision, scientific instruments, and numerous other fields.</p><p>Jon serves on the editorial board of The Atlanta Lawyer Magazine and is a lifetime member of the Armed Forces Communications and Electronics Association (AFCEA), where he currently serves on the board of the Atlanta Chapter.</p><h4>Education</h4><p class=\"detail-list\">Ph.D., Neuroscience and Physics, Indiana University</p>",
       contact:
         '<span>Through IP Solution</span>',
-    },
-    becky: {
+    },    becky: {
       name: "Becky Chiusano",
       title: "IP Program Manager",
       photo: "./assets/becky.png",
@@ -67,11 +66,14 @@
   /* ─── Theme Toggle ─── */
   var themeToggle = document.querySelector("[data-theme-toggle]");
   var root = document.documentElement;
-  var theme = window.location.hash === "#dark"
-    ? "dark"
-    : window.matchMedia("(prefers-color-scheme: dark)").matches
+  var savedTheme = localStorage.getItem('cmb-theme');
+  var theme = savedTheme
+    ? savedTheme
+    : window.location.hash === "#dark"
       ? "dark"
-      : "light";
+      : window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
   root.setAttribute("data-theme", theme);
   updateThemeIcon();
 
@@ -79,6 +81,7 @@
     themeToggle.addEventListener("click", function () {
       theme = theme === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", theme);
+      localStorage.setItem('cmb-theme', theme);
       themeToggle.setAttribute(
         "aria-label",
         "Switch to " + (theme === "dark" ? "light" : "dark") + " mode"
@@ -132,6 +135,69 @@
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
     });
   });
+
+  /* ─── Tools Dropdown ─── */
+  var toolsTrigger = document.getElementById("toolsTrigger");
+  var toolsDropdown = document.getElementById("toolsDropdown");
+  var toolsOverlay = document.getElementById("toolsOverlay");
+  var toolsClose = document.getElementById("toolsClose");
+  var mobileToolsToggle = document.getElementById("mobileToolsToggle");
+  var mobileToolsSub = document.getElementById("mobileToolsSub");
+
+  function openTools() {
+    toolsDropdown.classList.add("active");
+    toolsDropdown.setAttribute("aria-hidden", "false");
+    toolsOverlay.classList.add("active");
+    if (toolsTrigger) {
+      toolsTrigger.classList.add("active");
+      toolsTrigger.setAttribute("aria-expanded", "true");
+    }
+  }
+
+  function closeTools() {
+    toolsDropdown.classList.remove("active");
+    toolsDropdown.setAttribute("aria-hidden", "true");
+    toolsOverlay.classList.remove("active");
+    if (toolsTrigger) {
+      toolsTrigger.classList.remove("active");
+      toolsTrigger.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function toggleTools(e) {
+    e.preventDefault();
+    if (toolsDropdown.classList.contains("active")) {
+      closeTools();
+    } else {
+      openTools();
+    }
+  }
+
+  if (toolsTrigger) {
+    toolsTrigger.addEventListener("click", toggleTools);
+  }
+  if (toolsClose) {
+    toolsClose.addEventListener("click", closeTools);
+  }
+  if (toolsOverlay) {
+    toolsOverlay.addEventListener("click", closeTools);
+  }
+
+  // Close tools dropdown on Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && toolsDropdown.classList.contains("active")) {
+      closeTools();
+    }
+  });
+
+  // Mobile tools submenu toggle
+  if (mobileToolsToggle) {
+    mobileToolsToggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      var isOpen = mobileToolsSub.classList.toggle("active");
+      mobileToolsToggle.classList.toggle("active", isOpen);
+    });
+  }
 
   /* ─── Team Modal ─── */
   var modalOverlay = document.getElementById("teamModal");
